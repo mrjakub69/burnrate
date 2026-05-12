@@ -3,6 +3,7 @@ import FuelCalculator from "@/app/components/FuelCalculator";
 import InsuranceCalculator from "@/app/components/InsuranceCalculator";
 import { supabase } from "@/app/lib/supabase";
 
+export const dynamic = "force-dynamic";
 export async function generateMetadata({
   params,
 }) {
