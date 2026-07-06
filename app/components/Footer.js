@@ -31,6 +31,10 @@ const pages = [
   {
     label: "O projekcie",
     href: "/o-projekcie",
+    },
+  {
+    label: "Polityka prywatności",
+    href: "/polityka-prywatnosci",
   },
 ];
 

@@ -10,6 +10,7 @@ export default function sitemap() {
     "/blog",
     "/metodologia",
     "/o-projekcie",
+    "/polityka-prywatnosci",
   ];
 
   return pages.map((page) => ({
