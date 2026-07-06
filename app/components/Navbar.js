@@ -1,56 +1,47 @@
 import Link from "next/link";
 
 export default function Navbar() {
-
   return (
+    <nav className="border-b border-slate-800 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-50">
+      <div className="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-cyan-400 flex items-center justify-center font-bold text-slate-950">
+            BR
+          </div>
 
-    <header className="border-b border-zinc-800 bg-zinc-950 sticky top-0 z-50">
+          <div>
+            <p className="font-bold text-xl">
+              BurnRate
+            </p>
 
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-
-        <Link
-          href="/"
-          className="text-2xl font-bold text-orange-500"
-        >
-          BurnRate
+            <p className="text-slate-500 text-sm">
+              Car cost calculators
+            </p>
+          </div>
         </Link>
 
-        <nav className="flex items-center gap-6 text-zinc-300">
-
-          <Link
-            href="/ranking"
-            className="hover:text-orange-500 transition"
-          >
-            Ranking
+        <div className="hidden md:flex items-center gap-8 text-slate-400">
+          <Link href="/kalkulator" className="hover:text-cyan-400 transition">
+            Koszt auta
           </Link>
 
-          <Link
-            href="/porownanie"
-            className="hover:text-orange-500 transition"
-          >
-            Porównanie
+          <Link href="/oc" className="hover:text-cyan-400 transition">
+            OC
           </Link>
 
-          <Link
-            href="/auta-z-malym-spalaniem"
-            className="hover:text-orange-500 transition"
-          >
-            Spalanie
+          <Link href="/ev" className="hover:text-cyan-400 transition">
+            EV
           </Link>
 
-          <Link
-            href="/metodologia"
-            className="hover:text-orange-500 transition"
-          >
-            Metodologia
+          <Link href="/trasa" className="hover:text-cyan-400 transition">
+            Trasa
           </Link>
 
-        </nav>
-
+          <Link href="/blog" className="hover:text-cyan-400 transition">
+            Blog
+          </Link>
+        </div>
       </div>
-
-    </header>
-
+    </nav>
   );
-
 }
