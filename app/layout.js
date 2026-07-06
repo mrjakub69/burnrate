@@ -1,4 +1,5 @@
 import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -16,13 +17,14 @@ export const metadata = {
   title: "BurnRate",
 
   description:
-    "Realne koszty utrzymania samochodów. Sprawdź spalanie, awaryjność i miesięczne wydatki aut.",
+    "Kalkulatory kosztów samochodu. Oblicz koszt auta, OC, trasę oraz porównanie EV z autem spalinowym.",
 
   keywords: [
     "koszt utrzymania auta",
-    "spalanie samochodów",
-    "awaryjność aut",
-    "koszt paliwa",
+    "kalkulator kosztu auta",
+    "kalkulator OC",
+    "koszt trasy samochodem",
+    "EV vs spalinowe",
     "BurnRate",
   ],
 };
@@ -30,16 +32,18 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html
-      lang="en"
+      lang="pl"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-zinc-950 text-white">
+      <body className="min-h-full flex flex-col bg-slate-950 text-white">
+        <Navbar />
 
-  <Navbar />
+        <div className="flex-1">
+          {children}
+        </div>
 
-  {children}
-
-</body>
+        <Footer />
+      </body>
     </html>
   );
 }
