@@ -1,34 +1,19 @@
-import { cars } from "@/data/cars";
-
 export default function sitemap() {
+  const baseUrl = "https://burnrate-six.vercel.app";
 
-  const baseUrl =
-    "https://koszt-auta.vercel.app";
-
-  const carUrls = cars.map((car) => ({
-    url: `${baseUrl}/koszt/${car.slug}`,
-    lastModified: new Date(),
-  }));
-
-  return [
-
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-    },
-
-    {
-      url: `${baseUrl}/ranking`,
-      lastModified: new Date(),
-    },
-
-    {
-      url: `${baseUrl}/auta-z-malym-spalaniem`,
-      lastModified: new Date(),
-    },
-
-    ...carUrls,
-
+  const pages = [
+    "",
+    "/kalkulator",
+    "/oc",
+    "/ev",
+    "/trasa",
+    "/blog",
+    "/metodologia",
+    "/o-projekcie",
   ];
 
+  return pages.map((page) => ({
+    url: `${baseUrl}${page}`,
+    lastModified: new Date(),
+  }));
 }

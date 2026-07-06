@@ -1,76 +1,72 @@
 import Link from "next/link";
 
 const posts = [
-
   {
-    slug: "czy-warto-kupic-bmw-e90",
-    title:
-      "Czy warto kupić BMW E90?",
+    slug: "ile-kosztuje-utrzymanie-samochodu",
+    title: "Ile naprawdę kosztuje utrzymanie samochodu?",
     excerpt:
-      "Koszty utrzymania, awaryjność i realne spalanie BMW E90.",
-    category:
-      "BMW",
+      "Paliwo, OC, serwis, naprawy i utrata wartości — sprawdź, z czego składa się realny koszt auta.",
+    category: "Koszt auta",
   },
 
   {
-    slug: "najmniej-awaryjne-suvy",
-    title:
-      "Najmniej awaryjne SUV-y",
+    slug: "ev-czy-spalinowe-co-tansze",
+    title: "EV czy auto spalinowe — co jest tańsze w użytkowaniu?",
     excerpt:
-      "Ranking SUV-ów o najniższej awaryjności i kosztach utrzymania.",
-    category:
-      "SUV",
+      "Porównanie kosztu jazdy autem elektrycznym i spalinowym z uwzględnieniem strat ładowania.",
+    category: "EV",
   },
 
   {
-    slug: "auta-z-malym-spalaniem",
-    title:
-      "Najlepsze auta z małym spalaniem",
+    slug: "jak-obliczyc-koszt-trasy",
+    title: "Jak obliczyć koszt trasy samochodem?",
     excerpt:
-      "Porównanie najbardziej oszczędnych samochodów.",
-    category:
-      "Spalanie",
+      "Prosty sposób na policzenie kosztu paliwa, podróży w obie strony, opłat dodatkowych i kosztu na osobę.",
+    category: "Trasa",
   },
 
+  {
+    slug: "co-wplywa-na-cene-oc",
+    title: "Co wpływa na cenę OC?",
+    excerpt:
+      "Wiek kierowcy, historia ubezpieczenia, szkody, miasto i pojemność silnika — zobacz, od czego zależy składka.",
+    category: "OC",
+  },
 ];
 
 export const metadata = {
-
-  title:
-    "Blog motoryzacyjny | BurnRate",
+  title: "Blog | BurnRate",
 
   description:
-    "Poradniki, rankingi i analizy kosztów utrzymania samochodów.",
-
+    "Poradniki o kosztach posiadania samochodu, OC, EV, paliwie i planowaniu wydatków na auto.",
 };
 
 export default function BlogPage() {
-
   return (
-
-    <main className="min-h-screen bg-zinc-950 text-white p-8">
-
+    <main className="min-h-screen bg-slate-950 text-white p-8">
       <div className="max-w-6xl mx-auto">
+        <p className="text-cyan-400 font-semibold mb-3">
+          Blog
+        </p>
 
         <h1 className="text-5xl font-bold mb-4">
-          Blog BurnRate
+          Poradniki BurnRate
         </h1>
 
-        <p className="text-zinc-400 text-xl mb-12">
-          Poradniki, rankingi i analizy motoryzacyjne.
+        <p className="text-slate-400 text-xl mb-12 max-w-3xl">
+          Proste poradniki o realnych kosztach posiadania auta, paliwie,
+          ubezpieczeniu, trasach i porównaniu samochodów elektrycznych ze
+          spalinowymi.
         </p>
 
         <div className="grid md:grid-cols-2 gap-8">
-
           {posts.map((post) => (
-
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="bg-zinc-900 border border-zinc-800 hover:border-orange-500 transition rounded-2xl p-8"
+              className="bg-slate-900 border border-slate-800 hover:border-cyan-400 transition rounded-2xl p-8"
             >
-
-              <p className="text-orange-500 mb-3">
+              <p className="text-cyan-400 mb-3 font-semibold">
                 {post.category}
               </p>
 
@@ -78,20 +74,13 @@ export default function BlogPage() {
                 {post.title}
               </h2>
 
-              <p className="text-zinc-400 text-lg">
+              <p className="text-slate-400 text-lg leading-8">
                 {post.excerpt}
               </p>
-
             </Link>
-
           ))}
-
         </div>
-
       </div>
-
     </main>
-
   );
-
 }
