@@ -50,17 +50,50 @@ export default function HomePage() {
             oraz różnica między autem elektrycznym i spalinowym.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-5">
             <Link
               href="/kalkulator"
-              className="inline-flex items-center justify-center bg-cyan-400 hover:bg-cyan-300 transition text-slate-950 font-bold px-8 py-5 rounded-2xl"
+              className="
+                inline-flex
+                items-center
+                justify-center
+                bg-cyan-400
+                hover:bg-cyan-300
+                text-slate-950
+                font-bold
+                text-xl
+                px-10
+                py-6
+                rounded-3xl
+                shadow-lg
+                shadow-cyan-400/20
+                transition
+                hover:-translate-y-0.5
+              "
             >
-              Oblicz koszt auta
+              Oblicz koszt auta →
             </Link>
 
             <Link
               href="/metodologia"
-              className="inline-flex items-center justify-center bg-slate-900 border border-slate-800 hover:border-cyan-400 transition text-white font-bold px-8 py-5 rounded-2xl"
+              className="
+                inline-flex
+                items-center
+                justify-center
+                bg-slate-900
+                border
+                border-slate-700
+                hover:border-cyan-400
+                hover:bg-slate-800
+                text-white
+                font-bold
+                text-xl
+                px-10
+                py-6
+                rounded-3xl
+                transition
+                hover:-translate-y-0.5
+              "
             >
               Zobacz metodologię
             </Link>

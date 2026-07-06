@@ -7,6 +7,24 @@ export default function CalculatorInput({
   max,
   suffix,
 }) {
+  const numericStep = Number(step) || 1;
+
+  function clampValue(numberValue) {
+    if (numberValue < min) {
+      return min;
+    }
+
+    if (max !== undefined && numberValue > max) {
+      return max;
+    }
+
+    return numberValue;
+  }
+
+  function cleanNumber(numberValue) {
+    return Number(numberValue.toFixed(10));
+  }
+
   function handleChange(e) {
     const rawValue = e.target.value;
 
@@ -15,23 +33,25 @@ export default function CalculatorInput({
       return;
     }
 
-    const numberValue = Number(rawValue);
+    const numberValue = Number(rawValue.replace(",", "."));
 
     if (Number.isNaN(numberValue)) {
       return;
     }
 
-    if (numberValue < min) {
-      setValue(min);
-      return;
-    }
+    setValue(cleanNumber(clampValue(numberValue)));
+  }
 
-    if (max !== undefined && numberValue > max) {
-      setValue(max);
-      return;
-    }
+  function changeValue(direction) {
+    const currentValue =
+      value === "" || Number.isNaN(Number(value))
+        ? 0
+        : Number(value);
 
-    setValue(numberValue);
+    const nextValue =
+      currentValue + direction * numericStep;
+
+    setValue(cleanNumber(clampValue(nextValue)));
   }
 
   function blockInvalidKeys(e) {
@@ -46,7 +66,31 @@ export default function CalculatorInput({
         {label}
       </label>
 
-      <div className="flex">
+      <div className="flex rounded-2xl border border-slate-700 bg-slate-900 overflow-hidden">
+        <button
+  type="button"
+  onClick={() => changeValue(-1)}
+  disabled={Number(value) <= min}
+  className="
+    w-14
+    min-h-[58px]
+    flex
+    items-center
+    justify-center
+    bg-slate-800
+    hover:bg-slate-700
+    disabled:bg-slate-900
+    disabled:text-slate-700
+    disabled:cursor-not-allowed
+    text-2xl
+    font-bold
+    text-white
+    transition
+  "
+>
+  −
+</button>
+
         <input
           type="number"
           step={step}
@@ -57,33 +101,58 @@ export default function CalculatorInput({
           onKeyDown={blockInvalidKeys}
           className="
             w-full
-            p-4
-            rounded-l-xl
+            min-h-[58px]
+            px-4
             bg-slate-900
-            border
-            border-slate-700
             text-white
+            text-lg
+            outline-none
+            text-center
+            [appearance:textfield]
+            [&::-webkit-outer-spin-button]:appearance-none
+            [&::-webkit-inner-spin-button]:appearance-none
           "
         />
 
         {suffix && (
           <div
             className="
+              min-h-[58px]
               px-4
               flex
               items-center
-              rounded-r-xl
+              justify-center
               bg-slate-950
-              border
-              border-l-0
+              border-l
               border-slate-700
-              text-slate-500
+              text-slate-400
               whitespace-nowrap
+              text-sm
             "
           >
             {suffix}
           </div>
         )}
+
+        <button
+          type="button"
+          onClick={() => changeValue(1)}
+          className="
+            w-14
+            min-h-[58px]
+            flex
+            items-center
+            justify-center
+            bg-cyan-400
+            hover:bg-cyan-300
+            text-2xl
+            font-bold
+            text-slate-950
+            transition
+          "
+        >
+          +
+        </button>
       </div>
     </div>
   );
