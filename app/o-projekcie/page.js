@@ -1,59 +1,57 @@
 export const metadata = {
-
-  title:
-    "O projekcie BurnRate",
+  title: "O projekcie | BurnRate",
 
   description:
-    "Dowiedz się czym jest BurnRate i jak analizujemy koszty utrzymania samochodów.",
-
+    "Dowiedz się, czym jest BurnRate i jak pomaga liczyć realne koszty posiadania samochodu.",
 };
 
 export default function AboutPage() {
-
   return (
-
-    <main className="min-h-screen bg-zinc-950 text-white">
-
+    <main className="min-h-screen bg-slate-950 text-white">
       <div className="max-w-4xl mx-auto px-6 py-20">
+        <p className="text-cyan-400 font-semibold mb-4">
+          O projekcie
+        </p>
 
-        <h1 className="text-5xl font-bold mb-10">
-          O projekcie BurnRate
+        <h1 className="text-5xl font-bold mb-10 leading-tight">
+          Czym jest BurnRate?
         </h1>
 
-        <div className="space-y-8 text-lg text-zinc-300 leading-8">
+        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8">
+          <div className="space-y-8 text-lg text-slate-300 leading-8">
+            <p>
+              BurnRate to projekt pomagający obliczyć realne koszty
+              posiadania i użytkowania samochodu.
+            </p>
 
-          <p>
-            BurnRate to portal analizujący realne
-            koszty utrzymania samochodów.
-          </p>
+            <p>
+              Celem BurnRate jest pokazanie, że koszt auta to nie tylko
+              paliwo. Do realnych wydatków trzeba doliczyć także OC,
+              serwis, naprawy, utratę wartości, koszt trasy oraz sposób
+              użytkowania samochodu.
+            </p>
 
-          <p>
-            Naszym celem jest pokazanie,
-            ile naprawdę kosztuje posiadanie auta
-            — nie tylko paliwo,
-            ale także serwis, ubezpieczenie
-            i utrata wartości.
-          </p>
+            <p>
+              Projekt opiera się na prostych kalkulatorach, które pokazują
+              użytkownikowi, skąd bierze się wynik. Dzięki temu można łatwiej
+              porównać różne scenariusze i sprawdzić, ile samochód naprawdę
+              kosztuje miesięcznie lub rocznie.
+            </p>
 
-          <p>
-            BurnRate powstał, aby pomagać kierowcom
-            podejmować bardziej świadome decyzje
-            zakupowe.
-          </p>
+            <p>
+              BurnRate nie jest ofertą ubezpieczeniową ani oficjalną wyceną
+              pojazdu. Wyniki mają charakter orientacyjny i zależą od danych
+              wpisanych przez użytkownika.
+            </p>
 
-          <p>
-            Projekt rozwijany jest w oparciu
-            o analizy rynku motoryzacyjnego,
-            raporty awaryjności oraz dane
-            dotyczące kosztów eksploatacji aut.
-          </p>
-
+            <p>
+              Projekt jest rozwijany jako centrum kalkulatorów motoryzacyjnych:
+              kosztu auta, OC, porównania EV z autem spalinowym oraz kosztu
+              trasy.
+            </p>
+          </div>
         </div>
-
       </div>
-
     </main>
-
   );
-
 }
