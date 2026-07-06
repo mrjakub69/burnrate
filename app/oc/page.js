@@ -9,84 +9,131 @@ import ResultRow from "@/app/components/calculators/ResultRow";
 import { calculateOC } from "@/app/lib/calculators/oc";
 
 export default function OCPage() {
-  const [age, setAge] =
-    useState(30);
-
-  const [yearsInsured, setYearsInsured] =
-    useState(5);
-
-  const [claims, setClaims] =
-    useState(0);
-
-  const [city, setCity] =
-    useState("medium");
-
-  const [engine, setEngine] =
-    useState(2.0);
+  const [age, setAge] = useState(30);
+  const [yearsInsured, setYearsInsured] = useState(5);
+  const [claims, setClaims] = useState(0);
+  const [citySize, setCitySize] = useState("medium");
+  const [engine, setEngine] = useState(1.8);
+  const [yearlyMileage, setYearlyMileage] = useState(15000);
+  const [usageType, setUsageType] = useState("private");
 
   const result = calculateOC({
     age,
     yearsInsured,
     claims,
-    city,
+    citySize,
     engine,
+    yearlyMileage,
+    usageType,
   });
 
   return (
     <CalculatorLayout
       title="Kalkulator OC"
-      description="Oszacuj orientacyjną składkę OC na podstawie wieku, historii ubezpieczenia, szkód i parametrów auta."
+      description="Oszacuj orientacyjną składkę OC na podstawie wieku kierowcy, historii ubezpieczenia, szkód, miasta i parametrów auta."
     >
       <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-6">
+        <h2 className="text-2xl font-bold">
+          Kierowca
+        </h2>
+
         <CalculatorInput
           label="Wiek kierowcy"
           value={age}
           setValue={setAge}
+          min={18}
+          max={99}
+          suffix="lat"
         />
 
         <CalculatorInput
-          label="Lata opłacania OC"
+          label="Lata historii OC"
           value={yearsInsured}
           setValue={setYearsInsured}
+          min={0}
+          max={60}
+          suffix="lat"
         />
 
         <CalculatorInput
-          label="Liczba szkód w ostatnich latach"
+          label="Liczba szkód"
           value={claims}
           setValue={setClaims}
+          min={0}
+          max={10}
+          suffix="szt."
         />
 
-        <CalculatorInput
-          label="Pojemność silnika (l)"
-          value={engine}
-          setValue={setEngine}
-          step="0.1"
-        />
+        <div className="border-t border-slate-800 pt-6">
+          <h2 className="text-2xl font-bold mb-6">
+            Auto i użytkowanie
+          </h2>
 
-        <div>
-          <label className="block text-slate-400 mb-2">
-            Wielkość miasta
-          </label>
+          <div className="space-y-6">
+            <div>
+              <label className="block text-slate-400 mb-2">
+                Wielkość miasta
+              </label>
 
-          <select
-            value={city}
-            onChange={(e) =>
-              setCity(e.target.value)
-            }
-            className="w-full p-4 rounded-xl bg-slate-900 border border-slate-700"
-          >
-            <option value="small">
-              Małe miasto / wieś
-            </option>
+              <select
+                value={citySize}
+                onChange={(e) => setCitySize(e.target.value)}
+                className="w-full p-4 rounded-xl bg-slate-900 border border-slate-700 text-white"
+              >
+                <option value="small">
+                  Małe miasto / wieś
+                </option>
 
-            <option value="medium">
-              Średnie miasto
-            </option>
+                <option value="medium">
+                  Średnie miasto
+                </option>
 
-            <option value="big">
-              Duże miasto
-            </option>
-          </select>
+                <option value="big">
+                  Duże miasto
+                </option>
+              </select>
+            </div>
+
+            <CalculatorInput
+              label="Pojemność silnika"
+              value={engine}
+              setValue={setEngine}
+              step="0.1"
+              min={0.6}
+              max={8}
+              suffix="l"
+            />
+
+            <CalculatorInput
+              label="Roczny przebieg"
+              value={yearlyMileage}
+              setValue={setYearlyMileage}
+              step="500"
+              min={0}
+              max={100000}
+              suffix="km"
+            />
+
+            <div>
+              <label className="block text-slate-400 mb-2">
+                Sposób użytkowania
+              </label>
+
+              <select
+                value={usageType}
+                onChange={(e) => setUsageType(e.target.value)}
+                className="w-full p-4 rounded-xl bg-slate-900 border border-slate-700 text-white"
+              >
+                <option value="private">
+                  Prywatnie
+                </option>
+
+                <option value="business">
+                  Firmowo / intensywnie
+                </option>
+              </select>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -113,26 +160,59 @@ export default function OCPage() {
           />
 
           <ResultRow
-            label="Mnożnik składki"
-            value={`${result.multiplier.toFixed(2)}x`}
+            label="Składka bazowa"
+            value={`${result.basePremium.toFixed(0)} zł`}
           />
 
           <ResultRow
-            label="Lata opłacania OC"
-            value={`${yearsInsured} lat`}
+            label="Wiek kierowcy"
+            value={`${result.ageFactor.toFixed(2)}x`}
+          />
+
+          <ResultRow
+            label="Historia OC"
+            value={`${result.historyFactor.toFixed(2)}x`}
           />
 
           <ResultRow
             label="Szkody"
-            value={`${claims}`}
+            value={`${result.claimsFactor.toFixed(2)}x`}
+          />
+
+          <ResultRow
+            label="Miasto"
+            value={`${result.cityFactor.toFixed(2)}x`}
+          />
+
+          <ResultRow
+            label="Pojemność silnika"
+            value={`${result.engineFactor.toFixed(2)}x`}
+          />
+
+          <ResultRow
+            label="Roczny przebieg"
+            value={`${result.mileageFactor.toFixed(2)}x`}
+          />
+
+          <ResultRow
+            label="Użytkowanie"
+            value={`${result.usageFactor.toFixed(2)}x`}
+          />
+
+          <ResultRow
+            label="Łączny mnożnik"
+            value={`${result.totalFactor.toFixed(2)}x`}
           />
         </div>
 
-        <p className="text-slate-500 mt-8 leading-7">
-          Wynik jest orientacyjny. Rzeczywista składka zależy od konkretnego
-          ubezpieczyciela, historii kierowcy, miejsca zamieszkania, auta oraz
-          aktualnych taryf.
-        </p>
+        <div className="mt-8 p-5 rounded-2xl bg-slate-950 border border-slate-800">
+          <p className="text-slate-400 leading-7">
+            Kalkulator OC pokazuje orientacyjny wpływ wybranych czynników na
+            składkę. Nie jest to oferta ubezpieczeniowa. Rzeczywista cena OC
+            zależy od ubezpieczyciela, historii kierowcy, pojazdu, miejsca
+            zamieszkania oraz aktualnych taryf.
+          </p>
+        </div>
       </div>
     </CalculatorLayout>
   );
