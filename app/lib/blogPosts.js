@@ -125,6 +125,149 @@ export const blogPosts = [
       },
     ],
   },
+{
+  slug: "jak-obliczyc-utrate-wartosci-samochodu",
+
+  title: "Jak obliczyć utratę wartości samochodu?",
+
+  excerpt:
+    "Prosty sposób na policzenie, ile auto realnie traci na wartości i jak wpływa to na miesięczny koszt posiadania.",
+
+  category: "Utrata wartości",
+
+  readingTime: "4 min czytania",
+
+  calculatorHref: "/kalkulator",
+
+  calculatorLabel: "Policz koszt auta z utratą wartości",
+
+  content: [
+    {
+      type: "paragraph",
+      text:
+        "Utrata wartości to jeden z największych kosztów posiadania samochodu. Problem polega na tym, że wielu kierowców jej nie zauważa, bo nie płaci się jej co miesiąc tak jak paliwa, OC albo serwisu.",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Ten koszt pojawia się dopiero przy sprzedaży auta. Jeżeli samochód został kupiony za określoną kwotę, a po kilku latach sprzedajesz go taniej, różnica między tymi kwotami jest właśnie utratą wartości.",
+    },
+    {
+      type: "heading",
+      text: "Podstawowy wzór",
+    },
+    {
+      type: "calculation",
+      text:
+        "Utrata wartości = cena zakupu auta - przewidywana cena sprzedaży",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Jeżeli chcesz policzyć, ile auto traci miesięcznie, musisz jeszcze podzielić tę kwotę przez czas posiadania samochodu.",
+    },
+    {
+      type: "calculation",
+      text:
+        "Utrata wartości miesięcznie = utrata wartości / liczba miesięcy posiadania auta",
+    },
+    {
+      type: "heading",
+      text: "Przykład obliczenia",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Załóżmy, że kupujesz samochód za 50 000 zł i planujesz sprzedać go po 3 latach za 35 000 zł.",
+    },
+    {
+      type: "calculation",
+      text:
+        "50 000 - 35 000 = 15 000 zł utraty wartości",
+    },
+    {
+      type: "paragraph",
+      text:
+        "To oznacza, że przez cały okres posiadania auta tracisz 15 000 zł. Teraz trzeba przeliczyć to na koszt roczny i miesięczny.",
+    },
+    {
+      type: "calculation",
+      text:
+        "15 000 / 3 lata = 5000 zł rocznie\n5000 / 12 = około 417 zł miesięcznie",
+    },
+    {
+      type: "paragraph",
+      text:
+        "W tym przykładzie samochód kosztuje około 417 zł miesięcznie tylko z powodu utraty wartości. To koszt, którego nie widać na co dzień, ale realnie wpływa na opłacalność posiadania auta.",
+    },
+    {
+      type: "heading",
+      text: "Dlaczego to ważne?",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Dwa samochody mogą mieć podobne spalanie i podobne koszty serwisu, ale bardzo różną utratę wartości. Auto, które wolniej traci wartość, może być tańsze w posiadaniu, nawet jeśli kosztuje więcej przy zakupie.",
+    },
+    {
+      type: "heading",
+      text: "Przykład porównania dwóch aut",
+    },
+    {
+      type: "list",
+      items: [
+        "Auto A: zakup 50 000 zł, sprzedaż po 3 latach za 35 000 zł",
+        "Auto B: zakup 50 000 zł, sprzedaż po 3 latach za 28 000 zł",
+      ],
+    },
+    {
+      type: "calculation",
+      text:
+        "Auto A: 50 000 - 35 000 = 15 000 zł utraty wartości\nAuto B: 50 000 - 28 000 = 22 000 zł utraty wartości",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Różnica wynosi 7000 zł. To oznacza, że Auto B może być realnie droższe w posiadaniu, nawet jeśli na początku kosztowało tyle samo.",
+    },
+    {
+      type: "heading",
+      text: "Co wpływa na utratę wartości?",
+    },
+    {
+      type: "list",
+      items: [
+        "marka i model samochodu",
+        "wiek auta",
+        "przebieg",
+        "stan techniczny",
+        "historia serwisowa",
+        "popularność danego modelu na rynku wtórnym",
+        "rodzaj silnika i paliwa",
+        "wyposażenie",
+      ],
+    },
+    {
+      type: "paragraph",
+      text:
+        "Nie da się przewidzieć przyszłej ceny sprzedaży idealnie, ale można przyjąć rozsądne założenie. W kalkulatorze BurnRate użytkownik sam wpisuje cenę zakupu, przewidywaną cenę sprzedaży i okres posiadania auta.",
+    },
+    {
+      type: "heading",
+      text: "Najczęstszy błąd",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Najczęstszy błąd to liczenie tylko paliwa i serwisu. Wtedy samochód może wyglądać na tani, mimo że w rzeczywistości szybko traci wartość i kosztuje znacznie więcej, niż się wydaje.",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Dlatego BurnRate dolicza utratę wartości do miesięcznego kosztu auta. Dzięki temu wynik jest bliższy realnym kosztom posiadania samochodu.",
+    },
+  ],
+}
 ];
 
 export function getBlogPost(slug) {
