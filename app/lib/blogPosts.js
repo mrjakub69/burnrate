@@ -430,6 +430,192 @@ export const blogPosts = [
         "Auto elektryczne najczęściej wygrywa kosztowo wtedy, gdy jest regularnie ładowane tanim prądem i pokonuje wystarczająco dużo kilometrów. Jeżeli jednak ktoś jeździ mało i ładuje głównie na drogich ładowarkach, różnica może być znacznie mniejsza.",
     },
   ],
+},
+{
+  slug: "ile-kosztuje-trasa-300-500-1000-km",
+
+  title: "Ile kosztuje trasa 300, 500 i 1000 km samochodem?",
+
+  excerpt:
+    "Konkretne przykłady kosztu trasy przy różnych dystansach, spalaniu 7 l/100 km i cenie paliwa 6,70 zł/l.",
+
+  category: "Trasa",
+
+  readingTime: "5 min czytania",
+
+  calculatorHref: "/trasa",
+
+  calculatorLabel: "Policz koszt własnej trasy",
+
+  content: [
+    {
+      type: "paragraph",
+      text:
+        "Koszt trasy samochodem można policzyć dość prosto, ale trzeba jasno przyjąć założenia. Najważniejsze dane to dystans, spalanie auta i cena paliwa.",
+    },
+    {
+      type: "paragraph",
+      text:
+        "W tym przykładzie policzymy koszt przejazdu dla trzech dystansów: 300 km, 500 km i 1000 km. To nie są stałe ceny dla każdego auta, tylko przykład pokazujący sposób liczenia.",
+    },
+    {
+      type: "heading",
+      text: "Założenia przykładu",
+    },
+    {
+      type: "list",
+      items: [
+        "spalanie auta: 7 l/100 km",
+        "cena paliwa: 6,70 zł/l",
+        "liczymy sam koszt paliwa",
+        "nie doliczamy autostrad, parkingów ani innych opłat",
+      ],
+    },
+    {
+      type: "heading",
+      text: "Podstawowy wzór",
+    },
+    {
+      type: "calculation",
+      text:
+        "Koszt paliwa = dystans / 100 × spalanie × cena paliwa",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Najpierw warto policzyć koszt przejechania 100 km. Przy spalaniu 7 l/100 km i cenie paliwa 6,70 zł/l wygląda to tak:",
+    },
+    {
+      type: "calculation",
+      text:
+        "7 × 6,70 = 46,90 zł za 100 km",
+    },
+    {
+      type: "paragraph",
+      text:
+        "To oznacza, że w tym przykładzie każde 100 km kosztuje około 47 zł samego paliwa.",
+    },
+    {
+      type: "heading",
+      text: "Ile kosztuje trasa 300 km?",
+    },
+    {
+      type: "calculation",
+      text:
+        "300 / 100 × 7 × 6,70 = 140,70 zł",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Trasa 300 km w jedną stronę kosztuje około 141 zł. Jeżeli jest to podróż w obie strony, koszt paliwa wyniesie około 281 zł.",
+    },
+    {
+      type: "calculation",
+      text:
+        "140,70 × 2 = 281,40 zł",
+    },
+    {
+      type: "heading",
+      text: "Ile kosztuje trasa 500 km?",
+    },
+    {
+      type: "calculation",
+      text:
+        "500 / 100 × 7 × 6,70 = 234,50 zł",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Trasa 500 km w jedną stronę kosztuje około 235 zł. W obie strony będzie to około 469 zł.",
+    },
+    {
+      type: "calculation",
+      text:
+        "234,50 × 2 = 469 zł",
+    },
+    {
+      type: "heading",
+      text: "Ile kosztuje trasa 1000 km?",
+    },
+    {
+      type: "calculation",
+      text:
+        "1000 / 100 × 7 × 6,70 = 469 zł",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Przejazd 1000 km kosztuje około 469 zł samego paliwa. Jeżeli mówimy o trasie 1000 km w jedną stronę i powrocie, koszt paliwa rośnie do około 938 zł.",
+    },
+    {
+      type: "calculation",
+      text:
+        "469 × 2 = 938 zł",
+    },
+    {
+      type: "heading",
+      text: "Koszt na osobę",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Jeżeli autem jedzie kilka osób, koszt można podzielić. To często pokazuje, że podróż samochodem może być dużo tańsza dla jednej osoby, jeśli koszty są dzielone między pasażerów.",
+    },
+    {
+      type: "calculation",
+      text:
+        "Trasa 500 km w obie strony: 469 zł\n2 osoby: 469 / 2 = 234,50 zł na osobę\n4 osoby: 469 / 4 = 117,25 zł na osobę",
+    },
+    {
+      type: "heading",
+      text: "Co może zwiększyć koszt trasy?",
+    },
+    {
+      type: "list",
+      items: [
+        "wyższe spalanie przy jeździe autostradowej",
+        "jazda z dużą prędkością",
+        "korki i postoje",
+        "opłaty za autostrady",
+        "parking",
+        "promy albo inne opłaty drogowe",
+        "większe obciążenie auta",
+      ],
+    },
+    {
+      type: "paragraph",
+      text:
+        "Dlatego w praktyce warto doliczyć dodatkowe koszty. Sama cena paliwa nie zawsze pokazuje pełny koszt wyjazdu.",
+    },
+    {
+      type: "heading",
+      text: "Przykład z dodatkowymi kosztami",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Załóżmy, że trasa 500 km w obie strony kosztuje 469 zł paliwa, ale dochodzi jeszcze 80 zł za autostrady i parking.",
+    },
+    {
+      type: "calculation",
+      text:
+        "469 + 80 = 549 zł całkowitego kosztu podróży",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Przy dwóch osobach będzie to około 275 zł na osobę, a przy czterech osobach około 137 zł na osobę.",
+    },
+    {
+      type: "heading",
+      text: "Najważniejszy wniosek",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Koszt trasy zależy głównie od dystansu, spalania i ceny paliwa, ale przy dłuższych wyjazdach warto doliczyć też opłaty dodatkowe. Najdokładniejszy wynik uzyskasz, wpisując własne dane w kalkulatorze kosztu trasy.",
+    },
+  ],
 }
 ];
 
