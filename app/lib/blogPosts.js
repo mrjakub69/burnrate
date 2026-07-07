@@ -267,6 +267,169 @@ export const blogPosts = [
         "Dlatego BurnRate dolicza utratę wartości do miesięcznego kosztu auta. Dzięki temu wynik jest bliższy realnym kosztom posiadania samochodu.",
     },
   ],
+},
+{
+  slug: "ev-czy-benzyna-kiedy-elektryk-sie-oplaca",
+
+  title: "EV czy benzyna — kiedy elektryk faktycznie wychodzi taniej?",
+
+  excerpt:
+    "Porównanie kosztu jazdy autem elektrycznym i benzynowym na konkretnym przykładzie z uwzględnieniem strat ładowania.",
+
+  category: "EV",
+
+  readingTime: "5 min czytania",
+
+  calculatorHref: "/ev",
+
+  calculatorLabel: "Porównaj EV z autem spalinowym",
+
+  content: [
+    {
+      type: "paragraph",
+      text:
+        "Auto elektryczne może być tańsze w codziennej jeździe, ale nie zawsze i nie w każdych warunkach. Największe znaczenie mają: cena prądu, sposób ładowania, zużycie energii, cena paliwa oraz miesięczny przebieg.",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Dlatego porównanie EV z autem benzynowym nie powinno opierać się tylko na stwierdzeniu, że prąd jest tańszy od paliwa. Trzeba policzyć realny koszt przejechania konkretnego dystansu.",
+    },
+    {
+      type: "heading",
+      text: "Przykładowe założenia",
+    },
+    {
+      type: "list",
+      items: [
+        "miesięczny przebieg: 1500 km",
+        "auto elektryczne: 18 kWh/100 km",
+        "straty ładowania: 8%",
+        "cena prądu: 0,90 zł/kWh",
+        "auto benzynowe: 7 l/100 km",
+        "cena benzyny: 6,70 zł/l",
+      ],
+    },
+    {
+      type: "heading",
+      text: "Koszt jazdy autem elektrycznym",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Najpierw liczymy, ile energii auto zużyje podczas jazdy. Przy przebiegu 1500 km miesięcznie i zużyciu 18 kWh/100 km otrzymujemy:",
+    },
+    {
+      type: "calculation",
+      text:
+        "1500 / 100 × 18 = 270 kWh miesięcznie",
+    },
+    {
+      type: "paragraph",
+      text:
+        "To jednak energia zużyta przez auto. Przy ładowaniu występują straty, więc z gniazdka trzeba pobrać trochę więcej energii.",
+    },
+    {
+      type: "calculation",
+      text:
+        "270 × 1,08 = 291,6 kWh pobrane z gniazdka",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Teraz mnożymy energię pobraną z gniazdka przez cenę prądu.",
+    },
+    {
+      type: "calculation",
+      text:
+        "291,6 × 0,90 = 262,44 zł miesięcznie",
+    },
+    {
+      type: "paragraph",
+      text:
+        "W tym przykładzie koszt jazdy autem elektrycznym wynosi około 262 zł miesięcznie.",
+    },
+    {
+      type: "heading",
+      text: "Koszt jazdy autem benzynowym",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Dla auta benzynowego liczymy koszt paliwa na podstawie przebiegu, spalania i ceny benzyny.",
+    },
+    {
+      type: "calculation",
+      text:
+        "1500 / 100 × 7 × 6,70 = 703,50 zł miesięcznie",
+    },
+    {
+      type: "paragraph",
+      text:
+        "W tym przykładzie koszt jazdy autem benzynowym wynosi około 704 zł miesięcznie.",
+    },
+    {
+      type: "heading",
+      text: "Różnica miesięczna",
+    },
+    {
+      type: "calculation",
+      text:
+        "704 - 262 = 442 zł miesięcznie",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Przy takich założeniach auto elektryczne jest tańsze w samej jeździe o około 442 zł miesięcznie. Rocznie daje to około 5300 zł różnicy.",
+    },
+    {
+      type: "calculation",
+      text:
+        "442 × 12 = 5304 zł rocznie",
+    },
+    {
+      type: "heading",
+      text: "Kiedy EV wychodzi najkorzystniej?",
+    },
+    {
+      type: "list",
+      items: [
+        "gdy auto jest ładowane głównie w domu",
+        "gdy cena prądu jest niska",
+        "gdy miesięczny przebieg jest dość wysoki",
+        "gdy auto elektryczne ma niskie zużycie energii",
+        "gdy porównywane auto spalinowe ma wysokie spalanie",
+      ],
+    },
+    {
+      type: "heading",
+      text: "Kiedy przewaga EV może być mniejsza?",
+    },
+    {
+      type: "list",
+      items: [
+        "gdy często korzystasz z drogich szybkich ładowarek",
+        "gdy miesięczny przebieg jest niski",
+        "gdy auto elektryczne zużywa dużo energii",
+        "gdy auto spalinowe jest bardzo oszczędne",
+        "gdy różnica w cenie zakupu auta jest bardzo duża",
+      ],
+    },
+    {
+      type: "paragraph",
+      text:
+        "Warto też pamiętać, że ten przykład porównuje tylko koszt jazdy, czyli energię i paliwo. Pełna opłacalność zależy jeszcze od ceny zakupu auta, utraty wartości, ubezpieczenia, serwisu i sposobu użytkowania.",
+    },
+    {
+      type: "heading",
+      text: "Najważniejszy wniosek",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Auto elektryczne najczęściej wygrywa kosztowo wtedy, gdy jest regularnie ładowane tanim prądem i pokonuje wystarczająco dużo kilometrów. Jeżeli jednak ktoś jeździ mało i ładuje głównie na drogich ładowarkach, różnica może być znacznie mniejsza.",
+    },
+  ],
 }
 ];
 
