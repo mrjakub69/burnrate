@@ -8,6 +8,7 @@ import ResultRow from "@/app/components/calculators/ResultRow";
 import ResultSummary from "@/app/components/calculators/ResultSummary";
 
 import { calculateEV } from "@/app/lib/calculators/ev";
+import { formatPLN } from "@/app/lib/formatters";
 import {
   chargingMethods,
   getChargingMethod,
@@ -242,7 +243,7 @@ export default function EVPage() {
 
         <ResultSummary
           label={getSummaryLabel(result.monthlyDifference)}
-          value={`${absoluteMonthlyDifference.toFixed(0)} zł`}
+          value={formatPLN(absoluteMonthlyDifference)}
           description={getDifferenceComment(result.monthlyDifference)}
         />
 
@@ -253,7 +254,7 @@ export default function EVPage() {
             </p>
 
             <p className="text-2xl font-bold">
-              {result.evMonthlyCost.toFixed(0)} zł
+              {formatPLN(result.evMonthlyCost)}
             </p>
           </div>
 
@@ -263,7 +264,7 @@ export default function EVPage() {
             </p>
 
             <p className="text-2xl font-bold">
-              {result.fuelMonthlyCost.toFixed(0)} zł
+              {formatPLN(result.fuelMonthlyCost)}
             </p>
           </div>
         </div>
@@ -274,7 +275,7 @@ export default function EVPage() {
           </p>
 
           <p className="text-2xl font-bold text-cyan-400">
-            {Math.abs(result.yearlyDifference).toFixed(0)} zł
+            {formatPLN(Math.abs(result.yearlyDifference))}
           </p>
 
           <p className="text-slate-400 mt-3 leading-7">
@@ -302,12 +303,12 @@ export default function EVPage() {
 
           <ResultRow
             label="Koszt EV / 100 km"
-            value={`${result.evCostPer100Km.toFixed(2)} zł`}
+            value={formatPLN(result.evCostPer100Km)}
           />
 
           <ResultRow
             label={`Koszt ${fuelLabels[fuelType]} / 100 km`}
-            value={`${result.fuelCostPer100Km.toFixed(2)} zł`}
+            value={formatPLN(result.fuelCostPer100Km)}
           />
         </div>
 

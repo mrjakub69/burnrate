@@ -5,15 +5,30 @@ import { useState } from "react";
 import CalculatorLayout from "@/app/components/calculators/CalculatorLayout";
 import CalculatorInput from "@/app/components/calculators/CalculatorInput";
 import ResultRow from "@/app/components/calculators/ResultRow";
+import ResultSummary from "@/app/components/calculators/ResultSummary";
 
 import { calculateOC } from "@/app/lib/calculators/oc";
+import { formatPLN } from "@/app/lib/formatters";
+
+function getRiskDescription(riskLevel) {
+  if (riskLevel === "Niskie") {
+    return "Przy tych danych kierowca ma stosunkowo niski profil ryzyka, więc szacowana składka OC jest niższa.";
+  }
+
+  if (riskLevel === "Wysokie") {
+    return "Przy tych danych kierowca ma podwyższony profil ryzyka, więc szacowana składka OC jest wyższa.";
+  }
+
+  return "Przy tych danych kierowca ma średni profil ryzyka, więc szacowana składka OC jest umiarkowana.";
+}
 
 export default function OCPage() {
   const [age, setAge] = useState(30);
   const [yearsInsured, setYearsInsured] = useState(5);
   const [claims, setClaims] = useState(0);
+
   const [citySize, setCitySize] = useState("medium");
-  const [engine, setEngine] = useState(1.8);
+  const [engine, setEngine] = useState(1.6);
   const [yearlyMileage, setYearlyMileage] = useState(15000);
   const [usageType, setUsageType] = useState("private");
 
@@ -30,7 +45,7 @@ export default function OCPage() {
   return (
     <CalculatorLayout
       title="Kalkulator OC"
-      description="Oszacuj orientacyjną składkę OC na podstawie wieku kierowcy, historii ubezpieczenia, szkód, miasta i parametrów auta."
+      description="Oszacuj orientacyjny koszt ubezpieczenia OC na podstawie wieku kierowcy, historii ubezpieczenia, auta i sposobu użytkowania."
     >
       <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-6">
         <h2 className="text-2xl font-bold">
@@ -42,16 +57,14 @@ export default function OCPage() {
           value={age}
           setValue={setAge}
           min={18}
-          max={99}
           suffix="lat"
         />
 
         <CalculatorInput
-          label="Lata historii OC"
+          label="Lata ubezpieczenia bez przerwy"
           value={yearsInsured}
           setValue={setYearsInsured}
           min={0}
-          max={60}
           suffix="lat"
         />
 
@@ -60,7 +73,6 @@ export default function OCPage() {
           value={claims}
           setValue={setClaims}
           min={0}
-          max={10}
           suffix="szt."
         />
 
@@ -72,7 +84,7 @@ export default function OCPage() {
           <div className="space-y-6">
             <div>
               <label className="block text-slate-400 mb-2">
-                Wielkość miasta
+                Wielkość miejscowości
               </label>
 
               <select
@@ -81,7 +93,7 @@ export default function OCPage() {
                 className="w-full p-4 rounded-xl bg-slate-900 border border-slate-700 text-white"
               >
                 <option value="small">
-                  Małe miasto / wieś
+                  Mała miejscowość
                 </option>
 
                 <option value="medium">
@@ -99,24 +111,21 @@ export default function OCPage() {
               value={engine}
               setValue={setEngine}
               step="0.1"
-              min={0.6}
-              max={8}
+              min={0.5}
               suffix="l"
             />
 
             <CalculatorInput
-              label="Roczny przebieg"
+              label="Przebieg roczny"
               value={yearlyMileage}
               setValue={setYearlyMileage}
-              step="500"
               min={0}
-              max={100000}
               suffix="km"
             />
 
             <div>
               <label className="block text-slate-400 mb-2">
-                Sposób użytkowania
+                Sposób użytkowania auta
               </label>
 
               <select
@@ -129,7 +138,7 @@ export default function OCPage() {
                 </option>
 
                 <option value="business">
-                  Firmowo / intensywnie
+                  Firmowo
                 </option>
               </select>
             </div>
@@ -139,78 +148,101 @@ export default function OCPage() {
 
       <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8">
         <h2 className="text-3xl font-bold mb-8">
-          Szacunkowa składka
+          Wynik
         </h2>
+
+        <ResultSummary
+          label="Szacowana składka OC rocznie"
+          value={formatPLN(result.yearlyOC)}
+          description={getRiskDescription(result.riskLevel)}
+        />
+
+        <div className="grid grid-cols-2 gap-4 mb-8">
+          <div className="rounded-2xl bg-slate-950 border border-slate-800 p-5">
+            <p className="text-slate-500 mb-2">
+              Miesięcznie
+            </p>
+
+            <p className="text-2xl font-bold">
+              {formatPLN(result.monthlyOC)}
+            </p>
+          </div>
+
+          <div className="rounded-2xl bg-slate-950 border border-slate-800 p-5">
+            <p className="text-slate-500 mb-2">
+              Poziom ryzyka
+            </p>
+
+            <p className="text-2xl font-bold text-cyan-400">
+              {result.riskLevel}
+            </p>
+          </div>
+        </div>
+
+        <div className="mb-8 rounded-2xl bg-slate-950 border border-slate-800 p-5">
+          <p className="text-slate-500 mb-2">
+            Kwota bazowa
+          </p>
+
+          <p className="text-2xl font-bold text-cyan-400 mb-3">
+            {formatPLN(result.basePremium)}
+          </p>
+
+          <p className="text-slate-400 leading-7">
+            Kalkulator zaczyna od kwoty bazowej, a następnie koryguje ją przez
+            współczynniki związane z kierowcą, autem i sposobem użytkowania.
+          </p>
+        </div>
 
         <div className="space-y-5 text-xl">
           <ResultRow
-            label="OC miesięcznie"
-            value={`${result.monthlyOC.toFixed(0)} zł`}
-            strong
-          />
-
-          <ResultRow
-            label="OC rocznie"
-            value={`${result.yearlyOC.toFixed(0)} zł`}
-          />
-
-          <ResultRow
-            label="Poziom ryzyka"
-            value={result.riskLevel}
-          />
-
-          <ResultRow
-            label="Składka bazowa"
-            value={`${result.basePremium.toFixed(0)} zł`}
-          />
-
-          <ResultRow
-            label="Wiek kierowcy"
+            label="Współczynnik wieku"
             value={`${result.ageFactor.toFixed(2)}x`}
           />
 
           <ResultRow
-            label="Historia OC"
+            label="Współczynnik historii OC"
             value={`${result.historyFactor.toFixed(2)}x`}
           />
 
           <ResultRow
-            label="Szkody"
+            label="Współczynnik szkód"
             value={`${result.claimsFactor.toFixed(2)}x`}
           />
 
           <ResultRow
-            label="Miasto"
+            label="Współczynnik miejscowości"
             value={`${result.cityFactor.toFixed(2)}x`}
           />
 
           <ResultRow
-            label="Pojemność silnika"
+            label="Współczynnik silnika"
             value={`${result.engineFactor.toFixed(2)}x`}
           />
 
           <ResultRow
-            label="Roczny przebieg"
+            label="Współczynnik przebiegu"
             value={`${result.mileageFactor.toFixed(2)}x`}
           />
 
           <ResultRow
-            label="Użytkowanie"
+            label="Współczynnik użytkowania"
             value={`${result.usageFactor.toFixed(2)}x`}
           />
 
           <ResultRow
             label="Łączny mnożnik"
             value={`${result.totalFactor.toFixed(2)}x`}
+            strong
           />
         </div>
 
         <div className="mt-8 p-5 rounded-2xl bg-slate-950 border border-slate-800">
           <p className="text-slate-400 leading-7">
-            Kalkulator OC pokazuje orientacyjny wpływ wybranych czynników na
-            składkę. Nie jest to oferta ubezpieczeniowa. Rzeczywista cena OC
-            zależy od ubezpieczyciela, historii kierowcy, pojazdu, miejsca
-            zamieszkania oraz aktualnych taryf.
+            To jest wynik orientacyjny, a nie rzeczywista oferta
+            ubezpieczeniowa. Prawdziwa cena OC zależy też od konkretnego
+            ubezpieczyciela, historii kierowcy, miejsca zamieszkania,
+            parametrów auta i aktualnych warunków rynkowych.
           </p>
         </div>
       </div>

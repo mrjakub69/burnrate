@@ -8,45 +8,10 @@ import ResultRow from "@/app/components/calculators/ResultRow";
 import ResultSummary from "@/app/components/calculators/ResultSummary";
 
 import { calculateCarCost } from "@/app/lib/calculators/carCost";
+import { formatPLN } from "@/app/lib/formatters";
 
-function getCostComment(monthlyOperatingCost) {
-  if (monthlyOperatingCost < 1000) {
-    return "To niski miesięczny koszt użytkowania auta.";
-  }
-
-  if (monthlyOperatingCost <= 2000) {
-    return "To typowy miesięczny koszt użytkowania samochodu.";
-  }
-
-  return "To wysoki miesięczny koszt użytkowania auta.";
-}
-
-export default function CalculatorPage() {
-  const [monthlyDistance, setMonthlyDistance] = useState(1500);
-  const [fuelConsumption, setFuelConsumption] = useState(7);
-  const [fuelPrice, setFuelPrice] = useState(6.7);
-
-  const [yearlyInsurance, setYearlyInsurance] = useState(1800);
-  const [yearlyService, setYearlyService] = useState(2500);
-  const [yearlyRepairs, setYearlyRepairs] = useState(2000);
-
-  const [purchasePrice, setPurchasePrice] = useState(50000);
-  const [resaleValue, setResaleValue] = useState(35000);
-  const [ownershipYears, setOwnershipYears] = useState(3);
-
-  const result = calculateCarCost({
-    monthlyDistance,
-    fuelConsumption,
-    fuelPrice,
-    yearlyInsurance,
-    yearlyService,
-    yearlyRepairs,
-    purchasePrice,
-    resaleValue,
-    ownershipYears,
-  });
-
-  const costParts = [
+function getBiggestOperatingCost(result) {
+  const costs = [
     {
       label: "Paliwo",
       value: result.monthlyFuelCost,
@@ -65,18 +30,50 @@ export default function CalculatorPage() {
     },
   ];
 
-  const biggestCost = costParts.reduce((highest, current) =>
-    current.value > highest.value ? current : highest
-  );
+  return costs.reduce((biggest, current) => {
+    if (current.value > biggest.value) {
+      return current;
+    }
+
+    return biggest;
+  });
+}
+
+export default function CarCostPage() {
+  const [monthlyDistance, setMonthlyDistance] = useState(1500);
+  const [fuelConsumption, setFuelConsumption] = useState(7);
+  const [fuelPrice, setFuelPrice] = useState(6.7);
+
+  const [yearlyInsurance, setYearlyInsurance] = useState(1200);
+  const [yearlyService, setYearlyService] = useState(1800);
+  const [yearlyRepairs, setYearlyRepairs] = useState(1200);
+
+  const [purchasePrice, setPurchasePrice] = useState(40000);
+  const [resaleValue, setResaleValue] = useState(28000);
+  const [ownershipYears, setOwnershipYears] = useState(3);
+
+  const result = calculateCarCost({
+    monthlyDistance,
+    fuelConsumption,
+    fuelPrice,
+    yearlyInsurance,
+    yearlyService,
+    yearlyRepairs,
+    purchasePrice,
+    resaleValue,
+    ownershipYears,
+  });
+
+  const biggestOperatingCost = getBiggestOperatingCost(result);
 
   return (
     <CalculatorLayout
-      title="Kalkulator kosztu auta"
-      description="Oblicz średni koszt użytkowania samochodu: paliwo, OC, serwis i naprawy. Utrata wartości jest pokazana osobno jako koszt ekonomiczny."
+      title="Kalkulator kosztu utrzymania auta"
+      description="Oblicz miesięczne i roczne koszty użytkowania samochodu. Utrata wartości auta jest pokazana osobno jako koszt ekonomiczny."
     >
       <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-6">
         <h2 className="text-2xl font-bold">
-          Dane eksploatacyjne
+          Dane użytkowania
         </h2>
 
         <CalculatorInput
@@ -104,19 +101,15 @@ export default function CalculatorPage() {
 
         <div className="border-t border-slate-800 pt-6">
           <h2 className="text-2xl font-bold mb-6">
-            Roczne wydatki na auto
+            Koszty roczne
           </h2>
-
-          <p className="text-slate-500 text-sm leading-6 mb-6">
-            Te koszty oznaczają pieniądze, które kierowca średnio wydaje
-            na samochód w ciągu roku: OC, serwis i naprawy.
-          </p>
 
           <div className="space-y-6">
             <CalculatorInput
               label="OC rocznie"
               value={yearlyInsurance}
               setValue={setYearlyInsurance}
+              step="0.01"
               suffix="zł"
             />
 
@@ -124,6 +117,7 @@ export default function CalculatorPage() {
               label="Serwis rocznie"
               value={yearlyService}
               setValue={setYearlyService}
+              step="0.01"
               suffix="zł"
             />
 
@@ -131,6 +125,7 @@ export default function CalculatorPage() {
               label="Naprawy rocznie"
               value={yearlyRepairs}
               setValue={setYearlyRepairs}
+              step="0.01"
               suffix="zł"
             />
           </div>
@@ -138,32 +133,33 @@ export default function CalculatorPage() {
 
         <div className="border-t border-slate-800 pt-6">
           <h2 className="text-2xl font-bold mb-3">
-            Szacowana utrata wartości
+            Utrata wartości
           </h2>
 
           <p className="text-slate-500 text-sm leading-6 mb-6">
-            Te dane nie są doliczane do rocznych wydatków na auto.
-            Pokazują osobno, ile samochód może stracić na wartości przez
-            okres posiadania.
+            Ta część nie jest bieżącym wydatkiem z portfela, ale pokazuje,
+            ile auto traci na wartości w czasie posiadania.
           </p>
 
           <div className="space-y-6">
             <CalculatorInput
-              label="Za ile kupujesz auto?"
+              label="Cena zakupu auta"
               value={purchasePrice}
               setValue={setPurchasePrice}
+              step="0.01"
               suffix="zł"
             />
 
             <CalculatorInput
-              label="Za ile planujesz je sprzedać?"
+              label="Szacowana cena sprzedaży"
               value={resaleValue}
               setValue={setResaleValue}
+              step="0.01"
               suffix="zł"
             />
 
             <CalculatorInput
-              label="Ile lat będziesz je mieć?"
+              label="Okres posiadania"
               value={ownershipYears}
               setValue={setOwnershipYears}
               min={1}
@@ -180,8 +176,8 @@ export default function CalculatorPage() {
 
         <ResultSummary
           label="Średni miesięczny koszt użytkowania"
-          value={`${result.monthlyOperatingCost.toFixed(0)} zł`}
-          description={getCostComment(result.monthlyOperatingCost)}
+          value={formatPLN(result.monthlyOperatingCost)}
+          description="To suma paliwa, OC, serwisu i napraw. Utrata wartości auta jest pokazana niżej osobno."
         />
 
         <div className="grid grid-cols-2 gap-4 mb-8">
@@ -191,7 +187,7 @@ export default function CalculatorPage() {
             </p>
 
             <p className="text-2xl font-bold">
-              {result.yearlyOperatingCost.toFixed(0)} zł
+              {formatPLN(result.yearlyOperatingCost)}
             </p>
           </div>
 
@@ -201,7 +197,7 @@ export default function CalculatorPage() {
             </p>
 
             <p className="text-2xl font-bold">
-              {result.operatingCostPerKm.toFixed(2)} zł
+              {formatPLN(result.operatingCostPerKm)}
             </p>
           </div>
         </div>
@@ -212,29 +208,34 @@ export default function CalculatorPage() {
           </p>
 
           <p className="text-2xl font-bold text-cyan-400">
-            {biggestCost.label} — {biggestCost.value.toFixed(0)} zł miesięcznie
+            {biggestOperatingCost.label}
+          </p>
+
+          <p className="text-slate-400 mt-3 leading-7">
+            Ten element ma największy udział w miesięcznych kosztach
+            użytkowania auta.
           </p>
         </div>
 
         <div className="space-y-5 text-xl">
           <ResultRow
             label="Paliwo miesięcznie"
-            value={`${result.monthlyFuelCost.toFixed(0)} zł`}
+            value={formatPLN(result.monthlyFuelCost)}
           />
 
           <ResultRow
             label="OC miesięcznie"
-            value={`${result.monthlyInsurance.toFixed(0)} zł`}
+            value={formatPLN(result.monthlyInsurance)}
           />
 
           <ResultRow
             label="Serwis miesięcznie"
-            value={`${result.monthlyService.toFixed(0)} zł`}
+            value={formatPLN(result.monthlyService)}
           />
 
           <ResultRow
             label="Naprawy miesięcznie"
-            value={`${result.monthlyRepairs.toFixed(0)} zł`}
+            value={formatPLN(result.monthlyRepairs)}
           />
         </div>
 
@@ -244,13 +245,15 @@ export default function CalculatorPage() {
           </p>
 
           <p className="text-2xl font-bold text-cyan-400 mb-3">
-            {result.totalDepreciation.toFixed(0)} zł przez {ownershipYears} lat
+            {formatPLN(result.totalDepreciation)}
           </p>
 
           <p className="text-slate-400 leading-7">
-            To oznacza około {result.monthlyDepreciation.toFixed(0)} zł
-            miesięcznie kosztu ekonomicznego. Nie jest to jednak bieżący
-            wydatek taki jak paliwo, OC, serwis albo naprawy.
+            Przy tych danych auto traci średnio{" "}
+            <span className="text-white font-semibold">
+              {formatPLN(result.monthlyDepreciation)}
+            </span>{" "}
+            miesięcznie na wartości.
           </p>
         </div>
 
@@ -259,15 +262,13 @@ export default function CalculatorPage() {
             Pełny koszt ekonomiczny
           </p>
 
-          <p className="text-2xl font-bold mb-3">
-            {result.economicMonthlyCost.toFixed(0)} zł miesięcznie
+          <p className="text-2xl font-bold text-cyan-400 mb-3">
+            {formatPLN(result.economicMonthlyCost)}
           </p>
 
           <p className="text-slate-400 leading-7">
-            To suma bieżących wydatków oraz szacowanej utraty wartości.
-            Ten wynik pokazuje pełniejszy obraz kosztu posiadania auta,
-            ale nie oznacza, że tyle pieniędzy trzeba faktycznie wydać
-            każdego miesiąca.
+            To koszt użytkowania auta razem z utratą wartości. Jest przydatny,
+            gdy chcesz policzyć, ile auto naprawdę kosztuje w dłuższym czasie.
           </p>
         </div>
       </div>

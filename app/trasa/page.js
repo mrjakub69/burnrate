@@ -5,8 +5,10 @@ import { useState } from "react";
 import CalculatorLayout from "@/app/components/calculators/CalculatorLayout";
 import CalculatorInput from "@/app/components/calculators/CalculatorInput";
 import ResultRow from "@/app/components/calculators/ResultRow";
+import ResultSummary from "@/app/components/calculators/ResultSummary";
 
 import { calculateRouteCost } from "@/app/lib/calculators/route";
+import { formatPLN } from "@/app/lib/formatters";
 
 const fuelLabels = {
   petrol95: "Benzyna 95",
@@ -15,30 +17,30 @@ const fuelLabels = {
   lpg: "LPG",
 };
 
+function getRouteComment(passengers, additionalCosts) {
+  if (passengers >= 3) {
+    return "Koszt na osobę jest niższy, bo podróżujesz z kilkoma osobami.";
+  }
+
+  if (additionalCosts > 0) {
+    return "Na całkowity koszt wpływa nie tylko paliwo, ale też dodatkowe opłaty.";
+  }
+
+  return "Największy wpływ na koszt trasy mają dystans, spalanie i cena paliwa.";
+}
+
 export default function RoutePage() {
-  const [distanceOneWay, setDistanceOneWay] =
-    useState(300);
+  const [distanceOneWay, setDistanceOneWay] = useState(300);
+  const [tripType, setTripType] = useState("oneWay");
 
-  const [tripType, setTripType] =
-    useState("oneWay");
+  const [fuelType, setFuelType] = useState("petrol95");
+  const [fuelConsumption, setFuelConsumption] = useState(7);
+  const [fuelPrice, setFuelPrice] = useState(6.7);
 
-  const [fuelType, setFuelType] =
-    useState("petrol95");
+  const [passengers, setPassengers] = useState(2);
+  const [additionalCosts, setAdditionalCosts] = useState(0);
 
-  const [fuelConsumption, setFuelConsumption] =
-    useState(7);
-
-  const [fuelPrice, setFuelPrice] =
-    useState(6.7);
-
-  const [passengers, setPassengers] =
-    useState(2);
-
-  const [additionalCosts, setAdditionalCosts] =
-    useState(0);
-
-  const isRoundTrip =
-    tripType === "roundTrip";
+  const isRoundTrip = tripType === "roundTrip";
 
   const result = calculateRouteCost({
     distanceOneWay,
@@ -52,7 +54,7 @@ export default function RoutePage() {
   return (
     <CalculatorLayout
       title="Kalkulator kosztu trasy"
-      description="Oblicz koszt przejazdu autem, koszt na osobę oraz koszt całej podróży z dodatkowymi opłatami."
+      description="Oblicz koszt przejazdu samochodem, koszt na osobę, paliwo i dodatkowe opłaty."
     >
       <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-6">
         <h2 className="text-2xl font-bold">
@@ -73,9 +75,7 @@ export default function RoutePage() {
 
           <select
             value={tripType}
-            onChange={(e) =>
-              setTripType(e.target.value)
-            }
+            onChange={(e) => setTripType(e.target.value)}
             className="w-full p-4 rounded-xl bg-slate-900 border border-slate-700 text-white"
           >
             <option value="oneWay">
@@ -101,9 +101,7 @@ export default function RoutePage() {
 
               <select
                 value={fuelType}
-                onChange={(e) =>
-                  setFuelType(e.target.value)
-                }
+                onChange={(e) => setFuelType(e.target.value)}
                 className="w-full p-4 rounded-xl bg-slate-900 border border-slate-700 text-white"
               >
                 <option value="petrol95">
@@ -167,6 +165,7 @@ export default function RoutePage() {
               label="Dodatkowe koszty"
               value={additionalCosts}
               setValue={setAdditionalCosts}
+              step="0.01"
               suffix="zł"
             />
 
@@ -183,49 +182,81 @@ export default function RoutePage() {
           Wynik
         </h2>
 
+        <ResultSummary
+          label="Całkowity koszt podróży"
+          value={formatPLN(result.totalCost)}
+          description={getRouteComment(passengers, additionalCosts)}
+        />
+
+        <div className="grid grid-cols-2 gap-4 mb-8">
+          <div className="rounded-2xl bg-slate-950 border border-slate-800 p-5">
+            <p className="text-slate-500 mb-2">
+              Koszt na osobę
+            </p>
+
+            <p className="text-2xl font-bold">
+              {formatPLN(result.costPerPerson)}
+            </p>
+          </div>
+
+          <div className="rounded-2xl bg-slate-950 border border-slate-800 p-5">
+            <p className="text-slate-500 mb-2">
+              Łączny dystans
+            </p>
+
+            <p className="text-2xl font-bold">
+              {result.totalDistance.toFixed(0)} km
+            </p>
+          </div>
+        </div>
+
+        <div className="mb-8 rounded-2xl bg-slate-950 border border-slate-800 p-5">
+          <p className="text-slate-500 mb-2">
+            Koszt paliwa
+          </p>
+
+          <p className="text-2xl font-bold text-cyan-400 mb-3">
+            {formatPLN(result.fuelCost)}
+          </p>
+
+          <p className="text-slate-400 leading-7">
+            To koszt samego paliwa dla wybranego dystansu. Dodatkowe opłaty,
+            takie jak autostrady lub parkingi, są doliczane osobno.
+          </p>
+        </div>
+
         <div className="space-y-5 text-xl">
           <ResultRow
-            label="Całkowity koszt podróży"
-            value={`${result.totalCost.toFixed(0)} zł`}
-            strong
-          />
-
-          <ResultRow
-            label="Koszt na osobę"
-            value={`${result.costPerPerson.toFixed(0)} zł`}
-          />
-
-          <ResultRow
             label="Koszt paliwa"
-            value={`${result.fuelCost.toFixed(0)} zł`}
+            value={formatPLN(result.fuelCost)}
           />
 
           <ResultRow
             label="Dodatkowe koszty"
-            value={`${result.additionalCosts.toFixed(0)} zł`}
+            value={formatPLN(result.additionalCosts)}
           />
 
           <ResultRow
-            label="Łączny dystans"
-            value={`${result.totalDistance.toFixed(0)} km`}
+            label="Liczba osób"
+            value={`${passengers}`}
           />
 
           <ResultRow
             label={`Koszt ${fuelLabels[fuelType]} / 100 km`}
-            value={`${result.fuelCostPer100Km.toFixed(2)} zł`}
+            value={formatPLN(result.fuelCostPer100Km)}
           />
 
           <ResultRow
             label="Całkowity koszt 1 km"
-            value={`${result.totalCostPerKm.toFixed(2)} zł`}
+            value={formatPLN(result.totalCostPerKm)}
           />
         </div>
 
         <div className="mt-8 p-5 rounded-2xl bg-slate-950 border border-slate-800">
           <p className="text-slate-400 leading-7">
-            Kalkulator liczy koszt trasy na podstawie dystansu, spalania,
-            ceny paliwa i dodatkowych kosztów. Jeżeli wybierzesz podróż w obie
-            strony, dystans zostanie automatycznie pomnożony przez 2.
+            Jeżeli wybierzesz podróż w obie strony, dystans zostanie
+            automatycznie pomnożony przez 2. Koszt na osobę jest liczony przez
+            podzielenie całkowitego kosztu podróży przez liczbę osób.
           </p>
         </div>
       </div>
