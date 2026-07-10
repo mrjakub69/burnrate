@@ -1,10 +1,9 @@
 import Link from "next/link";
-import {
-  blogPosts,
-  getBlogPost,
-} from "@/app/lib/blogPosts";
+import { notFound } from "next/navigation";
 
-export async function generateStaticParams() {
+import { blogPosts, getBlogPost } from "@/app/lib/blogPosts";
+
+export function generateStaticParams() {
   return blogPosts.map((post) => ({
     slug: post.slug,
   }));
@@ -12,13 +11,11 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-
   const post = getBlogPost(slug);
 
   if (!post) {
     return {
-      title: "Artykuł nie istnieje | BurnRate",
-      description: "Ten artykuł nie istnieje lub został usunięty.",
+      title: "Nie znaleziono artykułu | BurnRate",
     };
   }
 
@@ -29,25 +26,25 @@ export async function generateMetadata({ params }) {
 }
 
 function renderBlock(block, index) {
-  if (block.type === "heading") {
-    return (
-      <h2
-        key={index}
-        className="text-3xl font-bold text-white mt-10 mb-4"
-      >
-        {block.text}
-      </h2>
-    );
-  }
-
   if (block.type === "paragraph") {
     return (
       <p
         key={index}
-        className="text-slate-300 text-xl leading-10"
+        className="text-slate-300 text-lg leading-8"
       >
         {block.text}
       </p>
+    );
+  }
+
+  if (block.type === "heading") {
+    return (
+      <h2
+        key={index}
+        className="text-3xl font-bold text-white mt-12 mb-5"
+      >
+        {block.text}
+      </h2>
     );
   }
 
@@ -55,11 +52,18 @@ function renderBlock(block, index) {
     return (
       <ul
         key={index}
-        className="space-y-3 text-slate-300 text-xl leading-9"
+        className="space-y-3 my-6"
       >
         {block.items.map((item) => (
-          <li key={item}>
-            • {item}
+          <li
+            key={item}
+            className="flex gap-3 text-slate-300 text-lg leading-8"
+          >
+            <span className="mt-3 h-2 w-2 shrink-0 rounded-full bg-cyan-400" />
+
+            <span>
+              {item}
+            </span>
           </li>
         ))}
       </ul>
@@ -70,9 +74,15 @@ function renderBlock(block, index) {
     return (
       <div
         key={index}
-        className="bg-slate-950 border border-slate-800 rounded-2xl p-6 text-cyan-400 text-xl leading-9 whitespace-pre-line font-semibold"
+        className="my-7 rounded-2xl border border-cyan-400/30 bg-cyan-400/10 p-5"
       >
-        {block.text}
+        <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-cyan-400">
+          Obliczenie
+        </p>
+
+        <pre className="whitespace-pre-wrap font-mono text-base leading-7 text-white">
+          {block.text}
+        </pre>
       </div>
     );
   }
@@ -82,79 +92,125 @@ function renderBlock(block, index) {
 
 export default async function BlogPostPage({ params }) {
   const { slug } = await params;
-
   const post = getBlogPost(slug);
 
   if (!post) {
-    return (
-      <main className="min-h-screen bg-slate-950 text-white p-8">
-        <div className="max-w-4xl mx-auto">
-          <p className="text-cyan-400 font-semibold mb-4">
-            Blog BurnRate
-          </p>
-
-          <h1 className="text-4xl font-bold mb-4">
-            Artykuł nie istnieje
-          </h1>
-
-          <p className="text-slate-400 text-xl">
-            Ten artykuł został usunięty albo adres jest nieprawidłowy.
-          </p>
-        </div>
-      </main>
-    );
+    notFound();
   }
 
+  const otherPosts = blogPosts
+    .filter((item) => item.slug !== post.slug)
+    .slice(0, 3);
+
   return (
-    <main className="min-h-screen bg-slate-950 text-white p-8">
+    <main className="min-h-screen bg-slate-950 text-white px-6 py-16">
       <article className="max-w-4xl mx-auto">
         <Link
           href="/blog"
-          className="text-cyan-400 font-semibold mb-6 inline-block hover:text-cyan-300 transition"
+          className="inline-flex mb-10 text-slate-400 hover:text-cyan-400 transition"
         >
-          ← Blog BurnRate
+          ← Wróć do bloga
         </Link>
 
-        <div className="mb-10">
-          <p className="text-cyan-400 font-semibold mb-3">
-            {post.category}
-          </p>
+        <header className="mb-12">
+          <div className="flex flex-wrap items-center gap-3 mb-6">
+            <span className="text-sm font-semibold text-cyan-400 bg-cyan-400/10 px-3 py-1 rounded-full">
+              {post.category}
+            </span>
 
-          <h1 className="text-5xl font-bold mb-5 leading-tight">
+            <span className="text-sm text-slate-500">
+              {post.readingTime}
+            </span>
+          </div>
+
+          <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
             {post.title}
           </h1>
 
-          <p className="text-slate-500">
-            {post.readingTime}
+          <p className="text-xl text-slate-400 leading-8">
+            {post.excerpt}
           </p>
-        </div>
+        </header>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8">
-          <div className="space-y-7">
-            {post.content.map((block, index) =>
-              renderBlock(block, index)
-            )}
-          </div>
+        {post.calculatorHref && (
+          <section className="mb-12 rounded-3xl border border-slate-800 bg-slate-900 p-7">
+            <p className="text-cyan-400 font-semibold mb-3">
+              Policz to na własnych danych
+            </p>
 
-          <div className="mt-10 p-6 rounded-2xl bg-slate-950 border border-slate-800">
-            <h2 className="text-2xl font-bold mb-3">
-              Sprawdź własne dane
-            </h2>
-
-            <p className="text-slate-400 text-lg leading-8 mb-5">
-              Najlepiej policzyć koszt auta na własnych założeniach:
-              przebiegu, spalaniu, OC, serwisie, naprawach i utracie
-              wartości.
+            <p className="text-slate-400 leading-7 mb-5">
+              Artykuł pokazuje przykład i sposób liczenia. Najdokładniejszy
+              wynik uzyskasz po wpisaniu własnych danych w kalkulatorze.
             </p>
 
             <Link
               href={post.calculatorHref}
-              className="inline-flex items-center justify-center bg-cyan-400 hover:bg-cyan-300 transition text-slate-950 font-bold px-7 py-4 rounded-2xl"
+              className="inline-flex rounded-xl bg-cyan-400 px-5 py-3 font-bold text-slate-950 hover:bg-cyan-300 transition"
             >
-              {post.calculatorLabel} →
+              {post.calculatorLabel}
             </Link>
-          </div>
+          </section>
+        )}
+
+        <div className="space-y-6">
+          {post.content.map((block, index) =>
+            renderBlock(block, index)
+          )}
         </div>
+
+        {post.calculatorHref && (
+          <section className="mt-16 rounded-3xl border border-slate-800 bg-slate-900 p-8">
+            <h2 className="text-3xl font-bold mb-4">
+              Powiązany kalkulator
+            </h2>
+
+            <p className="text-slate-400 leading-7 mb-6">
+              Użyj kalkulatora, żeby sprawdzić wynik dla własnego auta,
+              przebiegu, cen paliwa, OC albo kosztów trasy.
+            </p>
+
+            <Link
+              href={post.calculatorHref}
+              className="inline-flex rounded-xl bg-cyan-400 px-5 py-3 font-bold text-slate-950 hover:bg-cyan-300 transition"
+            >
+              {post.calculatorLabel}
+            </Link>
+          </section>
+        )}
+
+        <section className="mt-16">
+          <h2 className="text-3xl font-bold mb-6">
+            Inne poradniki
+          </h2>
+
+          <div className="grid gap-4">
+            {otherPosts.map((item) => (
+              <Link
+                key={item.slug}
+                href={`/blog/${item.slug}`}
+                className="rounded-2xl border border-slate-800 bg-slate-900 p-5 hover:border-cyan-400 transition"
+              >
+                <div className="flex flex-wrap items-center gap-3 mb-3">
+                  <span className="text-xs font-semibold text-cyan-400 bg-cyan-400/10 px-3 py-1 rounded-full">
+                    {item.category}
+                  </span>
+
+                  <span className="text-xs text-slate-500">
+                    {item.readingTime}
+                  </span>
+                </div>
+
+                <h3 className="text-xl font-bold mb-2">
+                  {item.title}
+                </h3>
+
+                <p className="text-slate-400 leading-7">
+                  {item.excerpt}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
       </article>
     </main>
   );
