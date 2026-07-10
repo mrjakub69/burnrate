@@ -1,57 +1,142 @@
 import Link from "next/link";
+
 import { blogPosts } from "@/app/lib/blogPosts";
 
 export const metadata = {
-  title: "Blog | BurnRate",
-
+  title: "Blog o kosztach samochodu | BurnRate",
   description:
-    "Poradniki o kosztach posiadania samochodu, OC, EV, paliwie i planowaniu wydatków na auto.",
+    "Poradniki o kosztach utrzymania auta, utracie wartości, OC, kosztach trasy oraz porównaniu EV z autem spalinowym.",
 };
 
 export default function BlogPage() {
   return (
-    <main className="min-h-screen bg-slate-950 text-white p-8">
+    <main className="min-h-screen bg-slate-950 text-white px-6 py-16">
       <div className="max-w-6xl mx-auto">
-        <p className="text-cyan-400 font-semibold mb-3">
-          Blog
-        </p>
+        <section className="mb-14">
+          <p className="text-cyan-400 font-semibold mb-4">
+            Blog BurnRate
+          </p>
 
-        <h1 className="text-5xl font-bold mb-4">
-          Poradniki BurnRate
-        </h1>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 max-w-4xl">
+            Proste poradniki o realnych kosztach samochodu
+          </h1>
 
-        <p className="text-slate-400 text-xl mb-12 max-w-3xl">
-          Konkretne poradniki o realnych kosztach posiadania auta. Bez lania
-          wody — przykłady, założenia i proste obliczenia.
-        </p>
+          <p className="text-slate-400 text-xl leading-8 max-w-3xl">
+            Zobacz, ile naprawdę kosztuje utrzymanie auta, trasa samochodem,
+            ubezpieczenie OC oraz jazda autem elektrycznym w porównaniu z
+            autem spalinowym.
+          </p>
+        </section>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <section className="grid md:grid-cols-2 gap-6">
           {blogPosts.map((post) => (
-            <Link
+            <article
               key={post.slug}
-              href={`/blog/${post.slug}`}
-              className="bg-slate-900 border border-slate-800 hover:border-cyan-400 transition rounded-2xl p-8"
+              className="group bg-slate-900 border border-slate-800 rounded-3xl p-7 hover:border-cyan-400 transition"
             >
-              <div className="flex items-center justify-between gap-4 mb-4">
-                <p className="text-cyan-400 font-semibold">
+              <div className="flex items-center justify-between gap-4 mb-5">
+                <span className="text-sm font-semibold text-cyan-400 bg-cyan-400/10 px-3 py-1 rounded-full">
                   {post.category}
-                </p>
+                </span>
 
-                <p className="text-slate-500 text-sm">
+                <span className="text-sm text-slate-500">
                   {post.readingTime}
-                </p>
+                </span>
               </div>
 
-              <h2 className="text-3xl font-bold mb-4">
+              <h2 className="text-2xl font-bold mb-4 group-hover:text-cyan-400 transition">
                 {post.title}
               </h2>
 
-              <p className="text-slate-400 text-lg leading-8">
+              <p className="text-slate-400 leading-7 mb-6">
                 {post.excerpt}
               </p>
-            </Link>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="inline-flex justify-center rounded-xl bg-cyan-400 text-slate-950 font-bold px-5 py-3 hover:bg-cyan-300 transition"
+                >
+                  Czytaj artykuł
+                </Link>
+
+                {post.calculatorHref && (
+                  <Link
+                    href={post.calculatorHref}
+                    className="inline-flex justify-center rounded-xl bg-slate-950 border border-slate-800 text-slate-300 font-semibold px-5 py-3 hover:border-cyan-400 hover:text-cyan-400 transition"
+                  >
+                    {post.calculatorLabel}
+                  </Link>
+                )}
+              </div>
+            </article>
           ))}
-        </div>
+        </section>
+
+        <section className="mt-16 bg-slate-900 border border-slate-800 rounded-3xl p-8">
+          <h2 className="text-3xl font-bold mb-4">
+            Chcesz szybko policzyć własne koszty?
+          </h2>
+
+          <p className="text-slate-400 leading-7 mb-6 max-w-3xl">
+            Artykuły pokazują przykłady i sposób liczenia, ale najdokładniejszy
+            wynik uzyskasz po wpisaniu własnych danych w kalkulatorach.
+          </p>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Link
+              href="/kalkulator"
+              className="rounded-2xl bg-slate-950 border border-slate-800 p-5 hover:border-cyan-400 transition"
+            >
+              <p className="font-bold mb-2">
+                Koszt auta
+              </p>
+
+              <p className="text-sm text-slate-500">
+                Paliwo, OC, serwis, naprawy i utrata wartości.
+              </p>
+            </Link>
+
+            <Link
+              href="/oc"
+              className="rounded-2xl bg-slate-950 border border-slate-800 p-5 hover:border-cyan-400 transition"
+            >
+              <p className="font-bold mb-2">
+                OC
+              </p>
+
+              <p className="text-sm text-slate-500">
+                Orientacyjna składka OC na podstawie danych kierowcy.
+              </p>
+            </Link>
+
+            <Link
+              href="/ev"
+              className="rounded-2xl bg-slate-950 border border-slate-800 p-5 hover:border-cyan-400 transition"
+            >
+              <p className="font-bold mb-2">
+                EV vs spalinowe
+              </p>
+
+              <p className="text-sm text-slate-500">
+                Porównanie kosztu jazdy prądem i paliwem.
+              </p>
+            </Link>
+
+            <Link
+              href="/trasa"
+              className="rounded-2xl bg-slate-950 border border-slate-800 p-5 hover:border-cyan-400 transition"
+            >
+              <p className="font-bold mb-2">
+                Koszt trasy
+              </p>
+
+              <p className="text-sm text-slate-500">
+                Koszt paliwa, opłat i przejazdu na osobę.
+              </p>
+            </Link>
+          </div>
+        </section>
       </div>
     </main>
   );
