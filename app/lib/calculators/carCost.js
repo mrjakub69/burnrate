@@ -46,6 +46,23 @@ export function calculateCarCost({
   const monthlyRepairs =
     repairs / 12;
 
+  const monthlyOperatingCost =
+    monthlyFuelCost +
+    monthlyInsurance +
+    monthlyService +
+    monthlyRepairs;
+
+  const yearlyOperatingCost =
+    monthlyOperatingCost * 12;
+
+  const yearlyDistance =
+    distance * 12;
+
+  const operatingCostPerKm =
+    yearlyDistance > 0
+      ? yearlyOperatingCost / yearlyDistance
+      : 0;
+
   const totalDepreciation =
     Math.max(0, purchase - resale);
 
@@ -57,23 +74,11 @@ export function calculateCarCost({
   const yearlyDepreciation =
     monthlyDepreciation * 12;
 
-  const monthlyTotal =
-    monthlyFuelCost +
-    monthlyInsurance +
-    monthlyService +
-    monthlyRepairs +
-    monthlyDepreciation;
+  const economicMonthlyCost =
+    monthlyOperatingCost + monthlyDepreciation;
 
-  const yearlyTotal =
-    monthlyTotal * 12;
-
-  const yearlyDistance =
-    distance * 12;
-
-  const costPerKm =
-    yearlyDistance > 0
-      ? yearlyTotal / yearlyDistance
-      : 0;
+  const economicYearlyCost =
+    economicMonthlyCost * 12;
 
   return {
     monthlyFuelCost,
@@ -83,13 +88,16 @@ export function calculateCarCost({
     monthlyService,
     monthlyRepairs,
 
+    monthlyOperatingCost,
+    yearlyOperatingCost,
+    operatingCostPerKm,
+
     totalDepreciation,
     monthlyDepreciation,
     yearlyDepreciation,
 
-    monthlyTotal,
-    yearlyTotal,
+    economicMonthlyCost,
+    economicYearlyCost,
     yearlyDistance,
-    costPerKm,
   };
 }
