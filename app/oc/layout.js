@@ -1,8 +1,7 @@
 export const metadata = {
   title: "Kalkulator OC samochodu | BurnRate",
-
   description:
-    "Oszacuj orientacyjną składkę OC na podstawie wieku kierowcy, historii ubezpieczenia, szkód, miasta, pojemności silnika i przebiegu.",
+    "Oszacuj orientacyjny koszt OC samochodu na podstawie wieku kierowcy, historii ubezpieczenia, pojemności silnika, przebiegu i sposobu użytkowania auta.",
 };
 
 export default function OCLayout({ children }) {

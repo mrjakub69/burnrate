@@ -1,8 +1,7 @@
 export const metadata = {
   title: "Kalkulator kosztu utrzymania auta | BurnRate",
-
   description:
-    "Oblicz realny miesięczny i roczny koszt posiadania samochodu: paliwo, OC, serwis, naprawy i utratę wartości.",
+    "Oblicz miesięczny i roczny koszt użytkowania samochodu: paliwo, OC, serwis i naprawy. Utrata wartości auta jest pokazana osobno jako koszt ekonomiczny.",
 };
 
 export default function CalculatorLayout({ children }) {
