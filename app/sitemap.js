@@ -1,3 +1,5 @@
+import { blogPosts } from "@/app/lib/blogPosts";
+
 export default function sitemap() {
   const baseUrl = "https://burnrate-six.vercel.app";
 
@@ -13,8 +15,15 @@ export default function sitemap() {
     "/polityka-prywatnosci",
   ];
 
-  return pages.map((page) => ({
+  const staticPages = pages.map((page) => ({
     url: `${baseUrl}${page}`,
     lastModified: new Date(),
   }));
+
+  const blogPages = blogPosts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(),
+  }));
+
+  return [...staticPages, ...blogPages];
 }
