@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 
 import { blogPosts, getBlogPost } from "@/app/lib/blogPosts";
 
+const baseUrl = "https://burnrate-six.vercel.app";
+
 export function generateStaticParams() {
   return blogPosts.map((post) => ({
     slug: post.slug,
@@ -98,12 +100,45 @@ export default async function BlogPostPage({ params }) {
     notFound();
   }
 
+  const articleUrl = `${baseUrl}/blog/${post.slug}`;
+
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.excerpt,
+    inLanguage: "pl-PL",
+    articleSection: post.category,
+    url: articleUrl,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": articleUrl,
+    },
+    author: {
+      "@type": "Organization",
+      name: "BurnRate",
+      url: baseUrl,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "BurnRate",
+      url: baseUrl,
+    },
+  };
+
   const otherPosts = blogPosts
     .filter((item) => item.slug !== post.slug)
     .slice(0, 3);
 
   return (
     <main className="min-h-screen bg-slate-950 text-white px-6 py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleJsonLd),
+        }}
+      />
+
       <article className="max-w-4xl mx-auto">
         <Link
           href="/blog"
