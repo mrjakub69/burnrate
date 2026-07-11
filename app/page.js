@@ -2,193 +2,112 @@ import Link from "next/link";
 
 const calculators = [
   {
-    title: "Kalkulator kosztu auta",
+    title: "Koszt auta",
     description:
-      "Policz miesięczny i roczny koszt samochodu: paliwo, OC, serwis, naprawy i utratę wartości.",
+      "Oblicz miesięczny koszt użytkowania samochodu: paliwo, OC, serwis, naprawy oraz utratę wartości.",
     href: "/kalkulator",
-    label: "Koszt auta",
+    label: "Policz koszt auta",
   },
   {
     title: "Kalkulator OC",
     description:
-      "Oszacuj orientacyjną składkę OC na podstawie wieku, historii ubezpieczenia, szkód i parametrów auta.",
+      "Oszacuj orientacyjny koszt OC na podstawie wieku kierowcy, historii ubezpieczenia i danych auta.",
     href: "/oc",
-    label: "OC",
+    label: "Sprawdź OC",
   },
   {
     title: "EV vs spalinowe",
     description:
-      "Porównaj koszt jazdy autem elektrycznym i spalinowym z uwzględnieniem strat ładowania.",
+      "Porównaj koszt jazdy autem elektrycznym i spalinowym przy własnym przebiegu.",
     href: "/ev",
-    label: "EV",
+    label: "Porównaj EV",
   },
   {
-    title: "Kalkulator kosztu trasy",
+    title: "Koszt trasy",
     description:
-      "Oblicz koszt przejazdu, koszt paliwa, koszt na osobę i dodatkowe opłaty.",
+      "Policz koszt paliwa, dodatkowe opłaty, koszt całej podróży i koszt na osobę.",
     href: "/trasa",
-    label: "Trasa",
+    label: "Policz trasę",
   },
 ];
 
+export const metadata = {
+  title: "BurnRate — kalkulatory kosztów samochodu",
+  description:
+    "Oblicz koszt użytkowania auta, OC, koszt trasy oraz porównanie EV z autem spalinowym.",
+};
+
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
-      <section className="max-w-6xl mx-auto px-6 py-24">
-        <div className="max-w-4xl">
+    <main className="min-h-screen bg-slate-950 text-white px-6 py-16">
+      <div className="max-w-6xl mx-auto">
+        <section className="mb-16">
           <p className="text-cyan-400 font-semibold mb-4">
             BurnRate
           </p>
 
-          <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-8">
-            Oblicz realny koszt posiadania samochodu
+          <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6 max-w-4xl">
+            Ile naprawdę kosztuje auto?
           </h1>
 
-          <p className="text-slate-400 text-xl leading-8 mb-10 max-w-3xl">
-            BurnRate pomaga sprawdzić, ile naprawdę kosztuje auto:
-            paliwo, OC, serwis, naprawy, utrata wartości, koszt trasy
-            oraz różnica między autem elektrycznym i spalinowym.
+          <p className="text-slate-400 text-xl leading-8 max-w-3xl mb-8">
+            Sprawdź realny koszt użytkowania samochodu. Policz paliwo, OC,
+            serwis, naprawy, koszt trasy albo porównaj auto elektryczne ze
+            spalinowym.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-5">
+          <div className="flex flex-col sm:flex-row gap-4">
             <Link
               href="/kalkulator"
-              className="
-                inline-flex
-                items-center
-                justify-center
-                bg-cyan-400
-                hover:bg-cyan-300
-                text-slate-950
-                font-bold
-                text-xl
-                px-10
-                py-6
-                rounded-3xl
-                shadow-lg
-                shadow-cyan-400/20
-                transition
-                hover:-translate-y-0.5
-              "
+              className="inline-flex justify-center rounded-2xl bg-cyan-400 px-7 py-4 font-bold text-slate-950 hover:bg-cyan-300 transition"
             >
-              Oblicz koszt auta →
+              Policz koszt auta
             </Link>
 
             <Link
-              href="/metodologia"
-              className="
-                inline-flex
-                items-center
-                justify-center
-                bg-slate-900
-                border
-                border-slate-700
-                hover:border-cyan-400
-                hover:bg-slate-800
-                text-white
-                font-bold
-                text-xl
-                px-10
-                py-6
-                rounded-3xl
-                transition
-                hover:-translate-y-0.5
-              "
+              href="/blog"
+              className="inline-flex justify-center rounded-2xl border border-slate-700 px-7 py-4 font-bold text-slate-300 hover:border-cyan-400 hover:text-cyan-400 transition"
             >
-              Zobacz metodologię
+              Zobacz poradniki
             </Link>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="max-w-6xl mx-auto px-6 pb-24">
-        <div className="mb-12">
-          <p className="text-cyan-400 font-semibold mb-3">
-            Kalkulatory
-          </p>
+        <section>
+          <div className="mb-8">
+            <h2 className="text-3xl font-bold mb-3">
+              Kalkulatory
+            </h2>
 
-          <h2 className="text-4xl font-bold mb-4">
-            Wybierz, co chcesz policzyć
-          </h2>
-
-          <p className="text-slate-400 text-xl max-w-3xl">
-            Zamiast zgadywać koszty, wpisz własne dane i zobacz,
-            z czego składa się wynik.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-8">
-          {calculators.map((calculator) => (
-            <Link
-              key={calculator.href}
-              href={calculator.href}
-              className="group bg-slate-900 border border-slate-800 hover:border-cyan-400 transition rounded-2xl p-8"
-            >
-              <p className="text-cyan-400 font-semibold mb-3">
-                {calculator.label}
-              </p>
-
-              <h3 className="text-3xl font-bold mb-4 group-hover:text-cyan-400 transition">
-                {calculator.title}
-              </h3>
-
-              <p className="text-slate-400 text-lg leading-8">
-                {calculator.description}
-              </p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="max-w-6xl mx-auto px-6 pb-24">
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-10">
-          <div className="grid md:grid-cols-2 gap-10 items-center">
-            <div>
-              <p className="text-cyan-400 font-semibold mb-3">
-                Dlaczego BurnRate?
-              </p>
-
-              <h2 className="text-4xl font-bold mb-5">
-                Koszt auta to więcej niż paliwo
-              </h2>
-
-              <p className="text-slate-400 text-lg leading-8">
-                Samo spalanie nie pokazuje pełnego obrazu. Realny koszt
-                samochodu zależy też od OC, serwisu, napraw, utraty wartości,
-                sposobu użytkowania oraz przebiegu.
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              <Link
-                href="/blog"
-                className="block bg-slate-950 border border-slate-800 hover:border-cyan-400 transition rounded-2xl p-6"
-              >
-                <h3 className="text-2xl font-bold mb-2">
-                  Blog
-                </h3>
-
-                <p className="text-slate-400">
-                  Poradniki o kosztach auta, OC, EV i trasach.
-                </p>
-              </Link>
-
-              <Link
-                href="/o-projekcie"
-                className="block bg-slate-950 border border-slate-800 hover:border-cyan-400 transition rounded-2xl p-6"
-              >
-                <h3 className="text-2xl font-bold mb-2">
-                  O projekcie
-                </h3>
-
-                <p className="text-slate-400">
-                  Sprawdź, czym jest BurnRate i do czego służy.
-                </p>
-              </Link>
-            </div>
+            <p className="text-slate-400 leading-7 max-w-3xl">
+              Wybierz kalkulator i wpisz własne dane. Wynik pojawi się od razu,
+              bez logowania i bez skomplikowanych ustawień.
+            </p>
           </div>
-        </div>
-      </section>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {calculators.map((calculator) => (
+              <Link
+                key={calculator.href}
+                href={calculator.href}
+                className="group rounded-3xl border border-slate-800 bg-slate-900 p-7 hover:border-cyan-400 transition"
+              >
+                <h3 className="text-2xl font-bold mb-4 group-hover:text-cyan-400 transition">
+                  {calculator.title}
+                </h3>
+
+                <p className="text-slate-400 leading-7 mb-6">
+                  {calculator.description}
+                </p>
+
+                <span className="inline-flex rounded-xl bg-slate-950 border border-slate-800 px-5 py-3 font-semibold text-slate-300 group-hover:border-cyan-400 group-hover:text-cyan-400 transition">
+                  {calculator.label}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </div>
     </main>
   );
 }
