@@ -4,7 +4,7 @@ const calculators = [
   {
     title: "Koszt auta",
     description:
-      "Oblicz miesięczny koszt użytkowania samochodu: paliwo, OC, serwis, naprawy oraz utratę wartości.",
+      "Oblicz miesięczny koszt użytkowania samochodu: paliwo, OC, serwis i naprawy. Utratę wartości zobaczysz osobno jako koszt ekonomiczny.",
     href: "/kalkulator",
     label: "Policz koszt auta",
   },
