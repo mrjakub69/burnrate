@@ -15,6 +15,21 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "BurnRate",
+  description:
+    "Kalkulatory kosztów samochodu. Oblicz koszt auta, OC, trasę oraz porównanie EV z autem spalinowym.",
+  keywords: [
+    "koszt utrzymania auta",
+    "kalkulator kosztu auta",
+    "kalkulator OC",
+    "koszt trasy samochodem",
+    "EV vs spalinowe",
+    "BurnRate",
+  ],
+  verification: {
+    google: "xMlh3ZbUFQh6ClF8Y0MA6J3xQFSgk-HlEdZdTl0fzRE",
+  },
+};
+  title: "BurnRate",
 
   description:
     "Kalkulatory kosztów samochodu. Oblicz koszt auta, OC, trasę oraz porównanie EV z autem spalinowym.",
