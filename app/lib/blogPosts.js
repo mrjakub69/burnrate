@@ -670,6 +670,182 @@ export const blogPosts = [
       },
     ],
   },
+  {
+  slug: "ile-odkladac-na-serwis-i-naprawy-samochodu",
+
+  title: "Ile odkładać miesięcznie na serwis i naprawy samochodu?",
+
+  excerpt:
+    "Prosty sposób na oszacowanie, ile pieniędzy warto odkładać co miesiąc na serwis, eksploatację i niespodziewane naprawy auta.",
+
+  category: "Serwis",
+
+  readingTime: "5 min czytania",
+
+  calculatorHref: "/kalkulator",
+
+  calculatorLabel: "Policz koszt utrzymania auta",
+
+  content: [
+    {
+      type: "paragraph",
+      text:
+        "Serwis i naprawy samochodu często nie pojawiają się co miesiąc, ale to nie znaczy, że można je pominąć. W praktyce są to koszty nieregularne, które najlepiej przeliczyć na średni koszt miesięczny.",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Dzięki temu łatwiej przygotować się na większe wydatki, takie jak wymiana opon, oleju, hamulców, rozrządu, akumulatora albo niespodziewana naprawa.",
+    },
+    {
+      type: "heading",
+      text: "Dlaczego warto liczyć serwis miesięcznie?",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Największy błąd to myślenie, że skoro auto w danym miesiącu nic nie kosztowało, to jego utrzymanie było darmowe. Często jest tak, że przez kilka miesięcy nie płacisz nic, a potem nagle pojawia się rachunek na kilkaset albo kilka tysięcy złotych.",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Dlatego lepiej przyjąć średnią kwotę miesięczną i odkładać ją z góry. Wtedy większy serwis albo naprawa nie są aż takim zaskoczeniem.",
+    },
+    {
+      type: "heading",
+      text: "Przykład kosztu serwisu",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Załóżmy, że w ciągu roku na podstawowy serwis auta wydajesz 2500 zł. Może to obejmować wymianę oleju, filtrów, opon, klocków hamulcowych, płynów eksploatacyjnych i drobne przeglądy.",
+    },
+    {
+      type: "calculation",
+      text:
+        "2500 zł / 12 miesięcy = 208,33 zł miesięcznie",
+    },
+    {
+      type: "paragraph",
+      text:
+        "To oznacza, że sam serwis kosztuje średnio 208,33 zł miesięcznie, nawet jeśli nie płacisz tej kwoty regularnie co miesiąc.",
+    },
+    {
+      type: "heading",
+      text: "Przykład kosztu napraw",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Oprócz serwisu warto przyjąć osobny budżet na naprawy. Naprawy są trudniejsze do przewidzenia, ale całkowite pomijanie ich w kosztach auta często prowadzi do zaniżenia wyniku.",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Załóżmy, że w ciągu roku zakładasz 2000 zł na naprawy. Może to być np. zawieszenie, czujniki, alternator, akumulator, układ chłodzenia albo inne usterki.",
+    },
+    {
+      type: "calculation",
+      text:
+        "2000 zł / 12 miesięcy = 166,67 zł miesięcznie",
+    },
+    {
+      type: "paragraph",
+      text:
+        "W tym przykładzie na naprawy warto odkładać średnio 166,67 zł miesięcznie.",
+    },
+    {
+      type: "heading",
+      text: "Serwis i naprawy razem",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Jeśli połączymy koszt serwisu i napraw, otrzymamy bardziej realistyczny miesięczny budżet na utrzymanie auta.",
+    },
+    {
+      type: "calculation",
+      text:
+        "208,33 zł + 166,67 zł = 375,00 zł miesięcznie",
+    },
+    {
+      type: "paragraph",
+      text:
+        "W tym przykładzie rozsądnie byłoby odkładać około 375 zł miesięcznie na serwis i naprawy samochodu.",
+    },
+    {
+      type: "heading",
+      text: "Jaką kwotę przyjąć dla własnego auta?",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Nie ma jednej idealnej kwoty dla każdego samochodu. Nowsze, proste i popularne auta mogą wymagać mniejszego budżetu. Starsze, bardziej skomplikowane albo droższe w częściach samochody zwykle wymagają większej rezerwy.",
+    },
+    {
+      type: "list",
+      items: [
+        "małe i proste auto miejskie: zwykle niższy budżet na serwis",
+        "starsze auto klasy średniej: warto przyjąć większą rezerwę",
+        "auto premium: części i robocizna mogą być dużo droższe",
+        "diesel z dużym przebiegiem: możliwe drogie naprawy osprzętu",
+        "auto z LPG: trzeba doliczyć serwis instalacji gazowej",
+        "auto używane bez pełnej historii: lepiej przyjąć większy zapas",
+      ],
+    },
+    {
+      type: "heading",
+      text: "Małe koszty, które się kumulują",
+    },
+    {
+      type: "paragraph",
+      text:
+        "W kosztach auta łatwo pominąć drobne rzeczy, które osobno wydają się mało ważne. W skali roku potrafią jednak zrobić dużą różnicę.",
+    },
+    {
+      type: "list",
+      items: [
+        "wycieraczki",
+        "żarówki",
+        "płyn do spryskiwaczy",
+        "myjnia",
+        "wulkanizacja",
+        "geometria kół",
+        "nabicie klimatyzacji",
+        "drobne elementy zawieszenia",
+        "kontrola i wymiana płynów",
+      ],
+    },
+    {
+      type: "paragraph",
+      text:
+        "Dlatego w kalkulatorze warto wpisać nie tylko duże naprawy, ale też średni koszt drobnej eksploatacji.",
+    },
+    {
+      type: "heading",
+      text: "Bezpieczna zasada",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Prosta zasada jest taka: jeśli nie znasz dokładnych kosztów, lepiej przyjąć trochę wyższą kwotę niż zbyt niską. Zaniżony koszt serwisu sprawia, że auto wygląda na tańsze, niż jest w rzeczywistości.",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Przy aucie używanym rozsądnie jest mieć osobną rezerwę na naprawy, nawet jeśli samochód aktualnie działa dobrze.",
+    },
+    {
+      type: "heading",
+      text: "Najważniejszy wniosek",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Serwis i naprawy najlepiej liczyć jako średni miesięczny koszt. Nawet jeśli nie płacisz za nie regularnie, to realnie są częścią utrzymania auta. Dzięki temu wynik w kalkulatorze jest bliższy rzeczywistości, a większe wydatki mniej zaskakują.",
+    },
+  ],
+},
 ];
 
 export function getBlogPost(slug) {
